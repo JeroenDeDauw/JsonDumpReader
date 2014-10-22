@@ -18,9 +18,7 @@
 		"php": ">=5.4.0",
 
 		"wikibase/data-model": "~2.0",
-		"wikibase/data-model-serialization": "~1.1",
-
-		"jeroen/batching-iterator": "~2.1"
+		"wikibase/data-model-serialization": "~1.1"
 	},
 	"require-dev": {
 		"data-values/iri": "~0.1",
