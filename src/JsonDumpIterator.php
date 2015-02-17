@@ -15,7 +15,7 @@ class JsonDumpIterator implements \Iterator {
 	/**
 	 * @var Deserializer
 	 */
-	private $deserilaizer;
+	private $deserializer;
 
 	/**
 	 * @var JsonDumpReader
@@ -37,9 +37,9 @@ class JsonDumpIterator implements \Iterator {
 	 */
 	private $currentJson = null;
 
-	public function __construct( JsonDumpReader $dumpReader, Deserializer $entityDeserilaizer ) {
+	public function __construct( JsonDumpReader $dumpReader, Deserializer $entityDeserializer ) {
 		$this->dumpReader = $dumpReader;
-		$this->deserilaizer = $entityDeserilaizer;
+		$this->deserializer = $entityDeserializer;
 		//$this->watcher = $watcher;
 	}
 
@@ -81,7 +81,7 @@ class JsonDumpIterator implements \Iterator {
 			}
 
 			try {
-				return [ $json, $this->deserilaizer->deserialize( $data ) ];
+				return [ $json, $this->deserializer->deserialize( $data ) ];
 			}
 			catch ( DeserializationException $ex ) {
 				//$this->watcher->onError( $ex->getMessage() );
