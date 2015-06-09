@@ -17,7 +17,7 @@
 	"require": {
 		"php": ">=5.4.0",
 
-		"wikibase/data-model": "~2.0",
+		"wikibase/data-model": "~2.0|~3.0",
 		"wikibase/data-model-serialization": "~1.1"
 	},
 	"require-dev": {
