@@ -30,7 +30,7 @@ JsonDumpReader 0.2:
 
 ## Release notes
 
-### Version 0.1.0 (2015-09-29)
+### Version 0.2.0 (2015-09-29)
 
 * Installation with Wikibase DataModel Serialization 2.x is now supported
 * Installation restrictions of Wikibase DataModel version have been dropped
