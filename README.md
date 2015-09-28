@@ -18,12 +18,12 @@ Works with PHP 5.4+, PHP7 and HHVM.
 To add this package as a local, per-project dependency to your project, simply add a
 dependency on `jeroen/json-dump-reader` to your project's `composer.json` file.
 Here is a minimal example of a `composer.json` file that just defines a dependency on
-JsonDumpReader 1.0:
+JsonDumpReader 0.2:
 
 ```js
 {
     "require": {
-        "jeroen/json-dump-reader": "1.0.*"
+        "jeroen/json-dump-reader": "0.2.*"
     }
 }
 ```
