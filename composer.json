@@ -16,11 +16,11 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-
-		"wikibase/data-model": "~2.0|~3.0",
-		"wikibase/data-model-serialization": "~1.1"
+		"wikibase/data-model-serialization": "~1.1|~2.0"
 	},
 	"require-dev": {
+		"wikibase/data-model": "~2.0|~3.0|~4.2",
+
 		"data-values/iri": "~0.1",
 		"data-values/number": "~0.1",
 		"data-values/geo": "~1.0",
