@@ -18,7 +18,7 @@ class JsonDumpIterator implements \Iterator {
 	private $deserializer;
 
 	/**
-	 * @var JsonDumpReader
+	 * @var ExtractedDumpReader
 	 */
 	private $dumpReader;
 

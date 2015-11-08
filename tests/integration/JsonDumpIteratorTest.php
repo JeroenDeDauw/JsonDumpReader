@@ -7,7 +7,7 @@ use Iterator;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\JsonDumpReader\JsonDumpIterator;
-use Wikibase\JsonDumpReader\JsonDumpReader;
+use Wikibase\JsonDumpReader\ExtractedDumpReader;
 
 /**
  * @covers Wikibase\JsonDumpReader\JsonDumpIterator
@@ -19,7 +19,7 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 
 	private function newIteratorForFile( $filePath ) {
 		return new JsonDumpIterator(
-			new JsonDumpReader( $filePath ),
+			new ExtractedDumpReader( $filePath ),
 			$this->newCurrentEntityDeserializer()
 		);
 	}
@@ -96,7 +96,7 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testInitialPosition() {
-		$reader = new JsonDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
+		$reader = new ExtractedDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
 
 		$iterator = new JsonDumpIterator(
 			$reader,
@@ -107,7 +107,7 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 		$iterator->next();
 
 		$newIterator = new JsonDumpIterator(
-			new JsonDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath(), $reader->getPosition() ),
+			new ExtractedDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath(), $reader->getPosition() ),
 			$this->newCurrentEntityDeserializer()
 		);
 
