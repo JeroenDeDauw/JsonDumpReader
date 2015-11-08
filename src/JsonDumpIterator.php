@@ -72,7 +72,9 @@ class JsonDumpIterator implements \Iterator {
 	private function getNextFromJson() {
 		do {
 			$json = $this->dumpReader->nextJsonLine();
-			if ( $json === null ) return null;
+			if ( $json === null ) {
+				return null;
+			}
 
 			$data = json_decode( $json, true );
 			if ( $data === null ) {

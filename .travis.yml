@@ -7,6 +7,14 @@ php:
   - 7
   - hhvm
 
+sudo: false
+
+install: travis_retry composer install
+
 before_script: composer install --prefer-source
 
-script: phpunit
+script: composer ci
+
+cache:
+  directories:
+    - $HOME/.composer/cache

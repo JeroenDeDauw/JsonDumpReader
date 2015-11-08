@@ -5,8 +5,10 @@
 		"Wikibase",
 		"Wikidata",
 		"Dump",
-		"JSON"
+		"JSON",
+		"bz2"
 	],
+	"homepage": "https://github.com/JeroenDeDauw/JsonDumpReader",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
@@ -19,6 +21,11 @@
 		"wikibase/data-model-serialization": "~1.1|~2.0"
 	},
 	"require-dev": {
+		"whatthejeff/nyancat-phpunit-resultprinter": "~1.2",
+		"ockcyp/covers-validator": "~0.2.0",
+		"squizlabs/php_codesniffer": "~2.3",
+		"phpmd/phpmd": "~2.3",
+
 		"data-values/iri": "~0.1",
 		"data-values/number": "~0.1",
 		"data-values/geo": "~1.0",
@@ -35,5 +42,26 @@
 		"branch-alias": {
 			"dev-master": "0.2.x-dev"
 		}
+	},
+	"scripts": {
+		"test": [
+			"composer validate --no-interaction",
+			"phpunit",
+			"vendor/bin/covers-validator"
+		],
+		"cs": [
+			"composer phpcs",
+			"composer phpmd"
+		],
+		"ci": [
+			"composer test",
+			"composer cs"
+		],
+		"phpcs": [
+			"vendor/bin/phpcs src/* tests/* --standard=phpcs.xml --extensions=php -sp"
+		],
+		"phpmd": [
+			"vendor/bin/phpmd src/,tests/ text phpmd.xml"
+		]
 	}
 }
