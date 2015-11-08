@@ -30,11 +30,16 @@ JsonDumpReader 1.x:
 
 ## Release notes
 
-### Version 1.0.0 (2015-09-29)
+### Version 1.0.0 (dev)
 
-* Added `DumpLineReader`, which is used by `JsonDumpIterator` and implemented by `JsonDumpReader`
-* Added `Bz2DumpReader`, also implementing `DumpLineReader`
-* Added `JsonDumpIterator::onError`
+* Added `JsonDumpFactory`
+	* Added `JsonDumpFactory::newBz2DumpReader`
+	* Added `JsonDumpFactory::newExtractedDumpReader`
+	* Added `JsonDumpFactory::newStringDumpIterator`
+	* Added `JsonDumpFactory::newObjectDumpIterator`
+	* Added `JsonDumpFactory::newEntityDumpIterator`
+* Removed `JsonDumpReader` (now `JsonDumpFactory::newExtractedDumpReader`)
+* Removed `JsonDumpIterator` (now `JsonDumpFactory::newEntityDumpIterator`)
 * Added ci command that runs PHPUnit, PHPCS, PHPMD and covers tags validation
 
 ### Version 0.2.0 (2015-09-29)
