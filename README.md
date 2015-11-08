@@ -28,6 +28,67 @@ JsonDumpReader 1.x:
 }
 ```
 
+## Usage
+
+All services are constructed via the `JsonDumpFactory` class:
+
+```
+use Wikibase\JsonDumpReader\JsonDumpFactory;
+$factory = new JsonDumpFactory();
+```
+
+There are two types of services provided by this library: those implementing `DumpReader` and those
+implementing `Iterator`. The former allow you to ask for the next line of the dump. They are the most
+low level, with the different implementations supporting different dump file formats (such as `.json`
+and `.json.bz2`). The iterators all depend on a `DumpReader`, and allow you to easily iterate over
+all entities in the dump. They differ in how much additional processing they do, from nothing (returning
+the JSON stings) to fully deserializing the entities into `EntityDocument` objects.
+
+**Reading some lines from a bz2 dump**
+
+```
+$dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
+echo 'First line: ' . $dumpReader->nextJsonLine();
+echo 'Second line: ' . $dumpReader->nextJsonLine();
+```
+
+**Iterating though the JSON**
+
+```
+$dumpIterator = $factory->newStringDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
+
+foreach ( $dumpIterator as $jsonLine ) {
+	echo 'You can haz JSON: ' . $jsonLine;
+}
+```
+
+**Creating an EntityDocument iterator**
+
+```
+$dumpIterator = $factory->newEntityDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
+
+foreach ( $dumpIterator as $entityDocument ) {
+	echo 'At entity ' . $entityDocument->getId()->getSerialization();
+}
+```
+
+The iterator approach taken by this library is lazy and can easily be combined with iterator tools
+provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
+
+## Running the tests
+
+For tests only
+
+    composer test
+
+For style checks only
+
+	composer cs
+
+For a full CI run
+
+	composer ci
+
 ## Release notes
 
 ### Version 1.0.0 (dev)
