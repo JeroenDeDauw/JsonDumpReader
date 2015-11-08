@@ -73,11 +73,11 @@ class JsonDumpReaderTest extends \PHPUnit_Framework_TestCase {
 	public function testFindsAllEntitiesInBigFile() {
 		$reader = new JsonDumpReader( ( new \JsonDumpData() )->getOneThousandEntitiesDumpPath() );
 
-		foreach ( range( 0, 20 ) as $i ) {
+		foreach ( range( 0, 999 ) as $i ) {
 			$this->assertFindsAnotherJsonLine( $reader );
 		}
 
-		//$this->assertNull( $reader->nextEntity() );
+		$this->assertNull( $reader->nextJsonLine() );
 	}
 
 }

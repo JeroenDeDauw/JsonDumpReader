@@ -23,7 +23,7 @@ class JsonDumpIterator implements \Iterator {
 	private $dumpReader;
 
 	/**
-	 * @var JsonDumpWatcher
+	 * @var DumpIterationWatcher
 	 */
 	private $watcher;
 
@@ -37,7 +37,7 @@ class JsonDumpIterator implements \Iterator {
 	 */
 	private $currentJson = null;
 
-	public function __construct( JsonDumpReader $dumpReader, Deserializer $entityDeserializer ) {
+	public function __construct( DumpLineReader $dumpReader, Deserializer $entityDeserializer ) {
 		$this->dumpReader = $dumpReader;
 		$this->deserializer = $entityDeserializer;
 		//$this->watcher = $watcher;
@@ -106,11 +106,5 @@ class JsonDumpIterator implements \Iterator {
 		$this->dumpReader->rewind();
 		$this->next();
 	}
-
-}
-
-interface JsonDumpWatcher {
-
-	public function onError( $errorMessage );
 
 }

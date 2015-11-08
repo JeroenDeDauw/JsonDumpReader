@@ -6,17 +6,12 @@ namespace Wikibase\JsonDumpReader;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class JsonDumpReader implements DumpLineReader {
+class Bz2DumpReader implements DumpLineReader {
 
 	/**
 	 * @var string
 	 */
 	private $dumpFile;
-
-	/**
-	 * @var int
-	 */
-	private $initialPosition;
 
 	/**
 	 * @var resource
@@ -25,17 +20,19 @@ class JsonDumpReader implements DumpLineReader {
 
 	/**
 	 * @param string $dumpFilePath
-	 * @param int $initialPosition
 	 */
-	public function __construct( $dumpFilePath, $initialPosition = 0 ) {
+	public function __construct( $dumpFilePath ) {
 		$this->dumpFile = $dumpFilePath;
-		$this->initialPosition = $initialPosition;
 
 		$this->initReader();
 	}
 
 	private function initReader() {
-		$this->handle = fopen( $this->dumpFile, 'r' );
+		$this->handle = @bzopen( $this->dumpFile, 'r' );
+
+		if ( $this->handle === false ) {
+			throw new \RuntimeException( 'Could not open file: ' . $this->dumpFile );
+		}
 	}
 
 	public function __destruct() {
@@ -43,11 +40,12 @@ class JsonDumpReader implements DumpLineReader {
 	}
 
 	private function closeReader() {
-		fclose( $this->handle );
+		bzclose( $this->handle );
 	}
 
 	public function rewind() {
-		fseek( $this->handle, $this->initialPosition );
+		$this->closeReader();
+		$this->initReader();
 	}
 
 	/**
@@ -67,24 +65,6 @@ class JsonDumpReader implements DumpLineReader {
 		} while ( true );
 
 		return null;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getPosition() {
-		if ( PHP_INT_SIZE < 8 ) {
-			throw new \RuntimeException( 'Cannot reliably get the file position on 32bit PHP' );
-		}
-
-		return ftell( $this->handle );
-	}
-
-	/**
-	 * @param int $position
-	 */
-	public function seekToPosition( $position ) {
-		fseek( $this->handle, $position );
 	}
 
 }
