@@ -32,7 +32,7 @@ JsonDumpReader 1.x:
 
 All services are constructed via the `JsonDumpFactory` class:
 
-```
+```php
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 $factory = new JsonDumpFactory();
 ```
@@ -46,7 +46,7 @@ the JSON stings) to fully deserializing the entities into `EntityDocument` objec
 
 **Reading some lines from a bz2 dump**
 
-```
+```php
 $dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
 echo 'First line: ' . $dumpReader->nextJsonLine();
 echo 'Second line: ' . $dumpReader->nextJsonLine();
@@ -54,7 +54,7 @@ echo 'Second line: ' . $dumpReader->nextJsonLine();
 
 **Iterating though the JSON**
 
-```
+```php
 $dumpIterator = $factory->newStringDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
 
 foreach ( $dumpIterator as $jsonLine ) {
@@ -64,7 +64,7 @@ foreach ( $dumpIterator as $jsonLine ) {
 
 **Creating an EntityDocument iterator**
 
-```
+```php
 $dumpIterator = $factory->newEntityDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
 
 foreach ( $dumpIterator as $entityDocument ) {
