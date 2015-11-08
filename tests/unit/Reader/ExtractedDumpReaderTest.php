@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Wikibase\JsonDumpReader;
+namespace Tests\Wikibase\JsonDumpReader\Reader;
 
-use Wikibase\JsonDumpReader\ExtractedDumpReader;
+use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\ExtractedDumpReader
+ * @covers Wikibase\JsonDumpReader\Reader\ExtractedDumpReader
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

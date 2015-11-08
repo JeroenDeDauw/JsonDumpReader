@@ -3,6 +3,7 @@
 namespace Wikibase\JsonDumpReader;
 
 /**
+ * Package public
  * @since 1.0.0
  *
  * @licence GNU GPL v2+
@@ -14,6 +15,7 @@ interface DumpReader {
 	 * Returns the next JSON object (as string) or null if the end of the dump has been reached.
 	 *
 	 * @return string|null
+	 * @throws DumpReadingException
 	 */
 	public function nextJsonLine();
 

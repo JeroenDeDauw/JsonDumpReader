@@ -1,16 +1,19 @@
 <?php
 
-namespace Wikibase\JsonDumpReader;
+namespace Wikibase\JsonDumpReader\Iterator;
 
 use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
+use Iterator;
 use Wikibase\DataModel\Entity\EntityDocument;
 
 /**
+ * Package private
+ *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class JsonDumpIterator implements \Iterator {
+class EntityDumpIterator implements Iterator {
 
 	/**
 	 * @var Deserializer
@@ -18,9 +21,9 @@ class JsonDumpIterator implements \Iterator {
 	private $deserializer;
 
 	/**
-	 * @var ExtractedDumpReader
+	 * @var Iterator
 	 */
-	private $dumpReader;
+	private $dumpIterator;
 
 	/**
 	 * @var callable|null
@@ -32,25 +35,15 @@ class JsonDumpIterator implements \Iterator {
 	 */
 	private $current = null;
 
-	/**
-	 * @var string|null
-	 */
-	private $currentJson = null;
-
-	public function __construct( DumpReader $dumpReader, Deserializer $entityDeserializer ) {
-		$this->dumpReader = $dumpReader;
+	public function __construct( Iterator $objectIterator, Deserializer $entityDeserializer ) {
+		$this->dumpIterator = $objectIterator;
 		$this->deserializer = $entityDeserializer;
 	}
 
 	/**
-	 * Sets a callback that will be called with a string message when an error occurs.
-	 * Overrides previously set callbacks.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param callable $errorReporter
+	 * @param callable|null $errorReporter
 	 */
-	public function onError( callable $errorReporter ) {
+	public function onError( callable $errorReporter = null ) {
 		$this->errorReporter = $errorReporter;
 	}
 
@@ -64,43 +57,30 @@ class JsonDumpIterator implements \Iterator {
 	/**
 	 * @return EntityDocument|null
 	 */
-	public function getCurrentJson() {
-		return $this->currentJson;
-	}
-
-	/**
-	 * @return EntityDocument|null
-	 */
 	public function next() {
-		$data = $this->getNextFromJson();
+		$data = $this->getNextFromObject();
 
-		$this->currentJson = $data[0];
-		$this->current = $data[1];
+		$this->current = $data;
 
 		return $this->current;
 	}
 
-	private function getNextFromJson() {
-		do {
-			$json = $this->dumpReader->nextJsonLine();
-			if ( $json === null ) {
+	private function getNextFromObject() {
+		while ( true ) {
+			$jsonData = $this->dumpIterator->current();
+			$this->dumpIterator->next();
+
+			if ( $jsonData === null ) {
 				return null;
 			}
 
-			$data = json_decode( $json, true );
-			if ( $data === null ) {
-				$this->reportError( json_last_error_msg() );
-				return [ null, null ];
-			}
-
 			try {
-				return [ $json, $this->deserializer->deserialize( $data ) ];
+				return $this->deserializer->deserialize( $jsonData );
 			}
 			catch ( DeserializationException $ex ) {
 				$this->reportError( $ex->getMessage() );
 			}
 		}
-		while ( true );
 
 		return null;
 	}
@@ -121,8 +101,7 @@ class JsonDumpIterator implements \Iterator {
 
 	public function rewind() {
 		$this->current = null;
-		$this->currentJson = null;
-		$this->dumpReader->rewind();
+		$this->dumpIterator->rewind();
 		$this->next();
 	}
 

@@ -6,21 +6,24 @@ use DataValues\Deserializers\DataValueDeserializer;
 use Iterator;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
-use Wikibase\JsonDumpReader\JsonDumpIterator;
-use Wikibase\JsonDumpReader\ExtractedDumpReader;
+use Wikibase\JsonDumpReader\Iterator\EntityDumpIterator;
+use Wikibase\JsonDumpReader\JsonDumpFactory;
+use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\JsonDumpIterator
+ * @covers Wikibase\JsonDumpReader\Iterator\EntityDumpIterator
+ * @covers Wikibase\JsonDumpReader\JsonDumpFactory
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 
-	private function newIteratorForFile( $filePath ) {
-		return new JsonDumpIterator(
+	private function newIteratorForFile( $filePath, callable $onError = null ) {
+		return ( new JsonDumpFactory() )->newEntityDumpIterator(
 			new ExtractedDumpReader( $filePath ),
-			$this->newCurrentEntityDeserializer()
+			$this->newCurrentEntityDeserializer(),
+			$onError
 		);
 	}
 
@@ -50,14 +53,14 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 		return new DataValueDeserializer( $dataValueClasses );
 	}
 
-	private function assertFindsEntities( array $expectedIds, Iterator $dumpIterator ) {
+	private function assertFindsEntities( array $expectedIds, Iterator $dumpIterator, $message = '' ) {
 		$actualIds = [];
 
 		foreach ( $dumpIterator as $entity ) {
 			$actualIds[] = $entity->getId()->getSerialization();
 		}
 
-		$this->assertEquals( $expectedIds, $actualIds );
+		$this->assertEquals( $expectedIds, $actualIds, $message );
 	}
 
 	public function testGivenFileWithNoEntities_noEntitiesAreReturned() {
@@ -72,7 +75,7 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFindsEntities( [ 'Q1' ], $iterator );
 	}
 
-	public function testGivenFileWithFiveEntites_fiveEntityAreFound() {
+	public function testGivenFileWithFiveEntities_fiveEntityAreFound() {
 		$iterator = $this->newIteratorForFile( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
 
 		$this->assertFindsEntities( [ 'Q1', 'Q8', 'P16', 'P19', 'P22' ], $iterator );
@@ -91,23 +94,27 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 	public function testCanDoMultipleIterations() {
 		$iterator = $this->newIteratorForFile( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
 
-		$this->assertFindsEntities( [ 'Q1', 'Q8', 'P16', 'P19', 'P22' ], $iterator );
-		$this->assertFindsEntities( [ 'Q1', 'Q8', 'P16', 'P19', 'P22' ], $iterator );
+		$this->assertFindsEntities( [ 'Q1', 'Q8', 'P16', 'P19', 'P22' ], $iterator, 'first iteration' );
+		$this->assertFindsEntities( [ 'Q1', 'Q8', 'P16', 'P19', 'P22' ], $iterator, 'second iteration' );
 	}
 
 	public function testInitialPosition() {
 		$reader = new ExtractedDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
 
-		$iterator = new JsonDumpIterator(
-			$reader,
+		$iterator = new EntityDumpIterator(
+			( new JsonDumpFactory() )->newObjectDumpIterator( $reader ),
 			$this->newCurrentEntityDeserializer()
 		);
 
 		$iterator->next();
-		$iterator->next();
 
-		$newIterator = new JsonDumpIterator(
-			new ExtractedDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath(), $reader->getPosition() ),
+		$newReader = new ExtractedDumpReader(
+			( new \JsonDumpData() )->getFiveEntitiesDumpPath(),
+			$reader->getPosition()
+		);
+
+		$newIterator = new EntityDumpIterator(
+			( new JsonDumpFactory() )->newObjectDumpIterator( $newReader ),
 			$this->newCurrentEntityDeserializer()
 		);
 
@@ -115,12 +122,14 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenFileWithInvalidEntities_errorsAreReported() {
-		$iterator = $this->newIteratorForFile( __DIR__ . '/../data/3valid-2invalid.json' );
 		$errors = [];
 
-		$iterator->onError( function( $errorMessage ) use ( &$errors ) {
-			$errors[] = $errorMessage;
-		} );
+		$iterator = $this->newIteratorForFile(
+			__DIR__ . '/../data/3valid-2invalid.json',
+			function( $errorMessage ) use ( &$errors ) {
+				$errors[] = $errorMessage;
+			}
+		);
 
 		$iterator->rewind();
 		while ( $iterator->valid() ) {
@@ -132,15 +141,17 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenNonJsonFile_errorsIsReported() {
-		$iterator = $this->newIteratorForFile( __DIR__ . '/../data/invalid-json.json' );
-
 		$errors = [];
 
-		$iterator->onError( function( $errorMessage ) use ( &$errors ) {
-			$errors[] = $errorMessage;
-		} );
+		$iterator = $this->newIteratorForFile(
+			__DIR__ . '/../data/invalid-json.json',
+			function( $errorMessage ) use ( &$errors ) {
+				$errors[] = $errorMessage;
+			}
+		);
 
-		$this->assertNull( $iterator->next() );
+		$iterator->next();
+		$this->assertNull( $iterator->current() );
 
 		$this->assertContainsOnly( 'string', $errors );
 		$this->assertCount( 1, $errors );

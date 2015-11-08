@@ -3,7 +3,7 @@
 	- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
 	- https://github.com/squizlabs/PHP_CodeSniffer/tree/master/CodeSniffer/Standards
 -->
-<ruleset name="Replicator">
+<ruleset name="JsonDumpReader">
     <rule ref="Generic.Classes" />
     <rule ref="Generic.CodeAnalysis" />
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">
@@ -19,8 +19,8 @@
     <rule ref="Generic.Files.LineEndings" />
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="125" />
-            <property name="absoluteLineLimit" value="125" />
+            <property name="lineLimit" value="130" />
+            <property name="absoluteLineLimit" value="130" />
         </properties>
     </rule>
     <rule ref="Generic.Files.OneClassPerFile" />
@@ -33,8 +33,8 @@
 
     <rule ref="Generic.Metrics.NestingLevel">
         <properties>
-            <property name="nestingLevel" value="3" />
-            <property name="absoluteNestingLevel" value="3" />
+            <property name="nestingLevel" value="4" />
+            <property name="absoluteNestingLevel" value="4" />
         </properties>
     </rule>
 
