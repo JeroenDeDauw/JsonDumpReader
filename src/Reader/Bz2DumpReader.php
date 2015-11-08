@@ -23,6 +23,8 @@ class Bz2DumpReader implements DumpReader {
 	 */
 	private $handle = null;
 
+	private $lines = [ '' ];
+
 	/**
 	 * @param string $dumpFilePath
 	 */
@@ -44,6 +46,7 @@ class Bz2DumpReader implements DumpReader {
 	public function rewind() {
 		$this->closeReader();
 		$this->initReader();
+		$this->lines = [ '' ];
 	}
 
 	private function initReader() {
@@ -63,20 +66,42 @@ class Bz2DumpReader implements DumpReader {
 	public function nextJsonLine() {
 		$this->initReader();
 
-		do {
-			// TODO: bzread
-			$line = fgets( $this->handle );
+		while ( true ) {
+			$line = $this->nextLine();
 
-			if ( $line === false ) {
+			if ( $line === null ) {
 				return null;
+			}
+
+			if ( $line === '' ) {
+				continue;
 			}
 
 			if ( $line{0} === '{' ) {
 				return rtrim( $line, ",\n\r" );
 			}
-		} while ( true );
+		}
 
 		return null;
+	}
+
+	private function nextLine() {
+		while ( !feof( $this->handle ) && count( $this->lines ) === 1 ) {
+			$readString = bzread( $this->handle, 4096 );
+
+			if( bzerrno( $this->handle ) !== 0 ) {
+				throw new DumpReadingException( 'Decompression error: ' . bzerrstr( $this->handle ) );
+			}
+
+			if ( $readString === false ) {
+				break;
+			}
+
+			$this->lines[0] .= $readString;
+			$this->lines = explode( "\n", $this->lines[0] );
+		}
+
+		return array_shift( $this->lines );
 	}
 
 }
