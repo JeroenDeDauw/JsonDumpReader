@@ -55,7 +55,8 @@ echo 'Second line: ' . $dumpReader->nextJsonLine();
 **Iterating though the JSON**
 
 ```php
-$dumpIterator = $factory->newStringDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
+$dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
+$dumpIterator = $factory->newStringDumpIterator( $dumpReader );
 
 foreach ( $dumpIterator as $jsonLine ) {
 	echo 'You can haz JSON: ' . $jsonLine;
@@ -65,7 +66,8 @@ foreach ( $dumpIterator as $jsonLine ) {
 **Creating an EntityDocument iterator**
 
 ```php
-$dumpIterator = $factory->newEntityDumpIterator( $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' ) );
+$dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
+$dumpIterator = $factory->newEntityDumpIterator( $dumpReader );
 
 foreach ( $dumpIterator as $entityDocument ) {
 	echo 'At entity ' . $entityDocument->getId()->getSerialization();
