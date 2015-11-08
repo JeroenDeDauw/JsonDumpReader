@@ -1,6 +1,6 @@
 {
 	"name": "jeroen/json-dump-reader",
-	"description": "Library that provides ways to read from and iterate through the entities of a Wikibase JSON dump",
+	"description": "Provides line-by-line readers and iterators for Wikibase/Wikidata JSON dumps",
 	"keywords": [
 		"Wikibase",
 		"Wikidata",
