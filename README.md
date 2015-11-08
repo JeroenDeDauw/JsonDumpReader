@@ -11,7 +11,7 @@
 **JsonDumpReader** provides ways to read from and iterate through the [Wikibase](http://wikiba.se/)
 entities in a Wikibase Repository JSON dump.
 
-Works with PHP 5.6+, PHP7 and HHVM.
+Works with PHP 5.6+, including PHP7
 
 ## Installation
 
