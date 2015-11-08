@@ -6,7 +6,7 @@ namespace Wikibase\JsonDumpReader;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ExtractedDumpReader implements DumpLineReader {
+class ExtractedDumpReader implements DumpReader {
 
 	/**
 	 * @var string

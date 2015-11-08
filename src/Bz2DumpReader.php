@@ -8,7 +8,7 @@ namespace Wikibase\JsonDumpReader;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class Bz2DumpReader implements DumpLineReader {
+class Bz2DumpReader implements DumpReader {
 
 	/**
 	 * @var string

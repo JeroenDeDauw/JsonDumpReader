@@ -8,7 +8,7 @@ namespace Wikibase\JsonDumpReader;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-interface DumpLineReader {
+interface DumpReader {
 
 	/**
 	 * Returns the next JSON object (as string) or null if the end of the dump has been reached.

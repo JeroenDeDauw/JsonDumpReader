@@ -37,7 +37,7 @@ class JsonDumpIterator implements \Iterator {
 	 */
 	private $currentJson = null;
 
-	public function __construct( DumpLineReader $dumpReader, Deserializer $entityDeserializer ) {
+	public function __construct( DumpReader $dumpReader, Deserializer $entityDeserializer ) {
 		$this->dumpReader = $dumpReader;
 		$this->deserializer = $entityDeserializer;
 	}
