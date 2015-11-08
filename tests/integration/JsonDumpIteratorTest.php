@@ -114,4 +114,37 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFindsEntities( [ 'P16', 'P19', 'P22' ], $newIterator );
 	}
 
+	public function testGivenFileWithInvalidEntities_errorsAreReported() {
+		$iterator = $this->newIteratorForFile( __DIR__ . '/../data/3valid-2invalid.json' );
+		$errors = [];
+
+		$iterator->onError( function( $errorMessage ) use ( &$errors ) {
+			$errors[] = $errorMessage;
+		} );
+
+		$iterator->rewind();
+		while ( $iterator->valid() ) {
+			$iterator->next();
+		}
+
+		$this->assertContainsOnly( 'string', $errors );
+		$this->assertCount( 2, $errors );
+	}
+
+	public function testGivenNonJsonFile_errorsIsReported() {
+		$iterator = $this->newIteratorForFile( __DIR__ . '/../data/invalid-json.json' );
+
+		$errors = [];
+
+		$iterator->onError( function( $errorMessage ) use ( &$errors ) {
+			$errors[] = $errorMessage;
+		} );
+
+		$this->assertNull( $iterator->next() );
+
+		$this->assertContainsOnly( 'string', $errors );
+		$this->assertCount( 1, $errors );
+	}
+
+
 }

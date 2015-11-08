@@ -23,9 +23,9 @@ class JsonDumpIterator implements \Iterator {
 	private $dumpReader;
 
 	/**
-	 * @var DumpIterationWatcher
+	 * @var callable|null
 	 */
-	private $watcher;
+	private $errorReporter = null;
 
 	/**
 	 * @var EntityDocument|null
@@ -40,7 +40,18 @@ class JsonDumpIterator implements \Iterator {
 	public function __construct( DumpLineReader $dumpReader, Deserializer $entityDeserializer ) {
 		$this->dumpReader = $dumpReader;
 		$this->deserializer = $entityDeserializer;
-		//$this->watcher = $watcher;
+	}
+
+	/**
+	 * Sets a callback that will be called with a string message when an error occurs.
+	 * Overrides previously set callbacks.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param callable $errorReporter
+	 */
+	public function onError( callable $errorReporter ) {
+		$this->errorReporter = $errorReporter;
 	}
 
 	/**
@@ -78,20 +89,26 @@ class JsonDumpIterator implements \Iterator {
 
 			$data = json_decode( $json, true );
 			if ( $data === null ) {
-				//$this->watcher->onError( json_last_error_msg() );
-				return null;
+				$this->reportError( json_last_error_msg() );
+				return [ null, null ];
 			}
 
 			try {
 				return [ $json, $this->deserializer->deserialize( $data ) ];
 			}
 			catch ( DeserializationException $ex ) {
-				//$this->watcher->onError( $ex->getMessage() );
+				$this->reportError( $ex->getMessage() );
 			}
 		}
 		while ( true );
 
 		return null;
+	}
+
+	private function reportError( $errorMessage ) {
+		if ( $this->errorReporter !== null ) {
+			call_user_func( $this->errorReporter, $errorMessage );
+		}
 	}
 
 	public function key() {

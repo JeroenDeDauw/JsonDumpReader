@@ -34,6 +34,7 @@ JsonDumpReader 1.x:
 
 * Added `DumpLineReader`, which is used by `JsonDumpIterator` and implemented by `JsonDumpReader`
 * Added `Bz2DumpReader`, also implementing `DumpLineReader`
+* Added `JsonDumpIterator::onError`
 * Added ci command that runs PHPUnit, PHPCS, PHPMD and covers tags validation
 
 ### Version 0.2.0 (2015-09-29)
