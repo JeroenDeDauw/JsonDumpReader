@@ -58,31 +58,31 @@ class EntityDumpIterator implements Iterator {
 	 * @return EntityDocument|null
 	 */
 	public function next() {
-		$data = $this->getNextFromObject();
+		$this->dumpIterator->next();
 
-		$this->current = $data;
+		$this->getCurrentFromObject();
 
 		return $this->current;
 	}
 
-	private function getNextFromObject() {
+	private function getCurrentFromObject() {
 		while ( true ) {
-			$jsonData = $this->dumpIterator->current();
-			$this->dumpIterator->next();
-
-			if ( $jsonData === null ) {
-				return null;
-			}
-
 			try {
-				return $this->deserializer->deserialize( $jsonData );
+				$jsonData = $this->dumpIterator->current();
+
+				if ( $jsonData === null ) {
+					$this->current = null;
+					return;
+				}
+
+				$this->current = $this->deserializer->deserialize( $jsonData );
+				return;
 			}
 			catch ( DeserializationException $ex ) {
 				$this->reportError( $ex->getMessage() );
+				$this->dumpIterator->next();
 			}
 		}
-
-		return null;
 	}
 
 	private function reportError( $errorMessage ) {
@@ -102,7 +102,7 @@ class EntityDumpIterator implements Iterator {
 	public function rewind() {
 		$this->current = null;
 		$this->dumpIterator->rewind();
-		$this->next();
+		$this->getCurrentFromObject();
 	}
 
 }

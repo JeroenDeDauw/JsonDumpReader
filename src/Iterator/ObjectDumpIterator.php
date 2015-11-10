@@ -23,11 +23,6 @@ class ObjectDumpIterator implements Iterator {
 	private $current = null;
 
 	/**
-	 * @var int
-	 */
-	private $key = 0;
-
-	/**
 	 * @var Iterator
 	 */
 	private $stringIterator;
@@ -54,33 +49,31 @@ class ObjectDumpIterator implements Iterator {
 	 * @return string|null
 	 */
 	public function next() {
-		$data = $this->getNextFromString();
-
-		$this->current = $data;
-		$this->key++;
+		$this->stringIterator->next();
+		$this->getCurrentFromString();
 
 		return $this->current;
 	}
 
-	private function getNextFromString() {
+	private function getCurrentFromString() {
 		while ( true ) {
 			$jsonString = $this->stringIterator->current();
-			$this->stringIterator->next();
 
 			if ( $jsonString === null ) {
-				return null;
+				$this->current = null;
+				return;
 			}
 
 			$data = json_decode( $jsonString, true );
 			if ( $data === null ) {
 				$this->reportError( json_last_error_msg() );
+				$this->stringIterator->next();
 			}
 			else {
-				return $data;
+				$this->current = $data;
+				return;
 			}
 		}
-
-		return null;
 	}
 
 	private function reportError( $errorMessage ) {
@@ -90,7 +83,7 @@ class ObjectDumpIterator implements Iterator {
 	}
 
 	public function key() {
-		return $this->key;
+		return $this->stringIterator->key();
 	}
 
 	public function valid() {
@@ -99,9 +92,8 @@ class ObjectDumpIterator implements Iterator {
 
 	public function rewind() {
 		$this->current = null;
-		$this->key = -1;
 		$this->stringIterator->rewind();
-		$this->next();
+		$this->getCurrentFromString();
 	}
 
 }

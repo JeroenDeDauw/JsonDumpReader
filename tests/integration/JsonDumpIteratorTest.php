@@ -106,7 +106,11 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 			$this->newCurrentEntityDeserializer()
 		);
 
+		$iterator->rewind();
+		$this->assertSame( 'Q1', $iterator->current()->getId()->getSerialization() );
+
 		$iterator->next();
+		$this->assertSame( 'Q8', $iterator->current()->getId()->getSerialization() );
 
 		$newReader = new ExtractedDumpReader(
 			( new \JsonDumpData() )->getFiveEntitiesDumpPath(),
@@ -140,7 +144,7 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 		$this->assertCount( 2, $errors );
 	}
 
-	public function testGivenNonJsonFile_errorsIsReported() {
+	public function testGivenFileWithInvalidJsonLine_errorIsRecorded() {
 		$errors = [];
 
 		$iterator = $this->newIteratorForFile(
@@ -150,12 +154,10 @@ class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 			}
 		);
 
-		$iterator->next();
-		$this->assertNull( $iterator->current() );
+		iterator_to_array( $iterator );
 
 		$this->assertContainsOnly( 'string', $errors );
 		$this->assertCount( 1, $errors );
 	}
-
 
 }

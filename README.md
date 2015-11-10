@@ -93,6 +93,10 @@ For a full CI run
 
 ## Release notes
 
+### Version 1.0.1 (2015-11-10)
+
+* Fixed of-by-one error in resumption of `ExtractedDumpReader` via `getPosition`.
+
 ### Version 1.0.0 (2015-11-08)
 
 * Added `JsonDumpFactory`
