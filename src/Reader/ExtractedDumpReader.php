@@ -74,7 +74,7 @@ class ExtractedDumpReader implements DumpReader {
 	public function nextJsonLine() {
 		$this->initReader();
 
-		do {
+		while ( true ) {
 			$line = fgets( $this->handle );
 
 			if ( $line === false ) {
@@ -84,7 +84,7 @@ class ExtractedDumpReader implements DumpReader {
 			if ( $line{0} === '{' ) {
 				return rtrim( $line, ",\n\r" );
 			}
-		} while ( true );
+		}
 
 		return null;
 	}
