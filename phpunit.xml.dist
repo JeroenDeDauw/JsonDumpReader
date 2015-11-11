@@ -13,7 +13,8 @@
          verbose="true">
     <testsuites>
         <testsuite name="JsonDumpReaderTests">
-            <directory>tests</directory>
+            <directory>tests/unit</directory>
+            <directory>tests/integration</directory>
         </testsuite>
     </testsuites>
     <filter>
