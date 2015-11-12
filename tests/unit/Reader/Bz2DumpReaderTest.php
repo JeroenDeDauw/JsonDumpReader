@@ -25,13 +25,13 @@ class Bz2DumpReaderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenFileWithNoEntities_nullIsReturned() {
-		$reader = new Bz2DumpReader( __DIR__ . '/../../data/empty-dump.json.bz2' );
+		$reader = new Bz2DumpReader( ( new \JsonDumpData() )->getEmptyBz2DumpPath() );
 
 		$this->assertNull( $reader->nextJsonLine() );
 	}
 
 	public function testGivenFileWithFiveEntites_fiveEntityAreFound() {
-		$reader = new Bz2DumpReader( __DIR__ . '/../../data/five-entities.json.bz2' );
+		$reader = new Bz2DumpReader( ( new \JsonDumpData() )->getFiveEntitiesBz2DumpPath() );
 
 		$this->assertFindsEntity( $reader, 'Q1' );
 		$this->assertFindsEntity( $reader, 'Q8' );
@@ -42,7 +42,7 @@ class Bz2DumpReaderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testRewind() {
-		$reader = new Bz2DumpReader( __DIR__ . '/../../data/five-entities.json.bz2' );
+		$reader = new Bz2DumpReader( ( new \JsonDumpData() )->getFiveEntitiesBz2DumpPath() );
 
 		$this->assertFindsEntity( $reader, 'Q1' );
 		$this->assertFindsEntity( $reader, 'Q8' );
