@@ -35,7 +35,7 @@ class ExtractedDumpReaderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertNull( $reader->nextJsonLine() );
 	}
 
-	public function testGivenFileWithFiveEntites_fiveEntityAreFound() {
+	public function testGivenFileWithFiveEntities_fiveEntityAreFound() {
 		$reader = new ExtractedDumpReader( ( new \JsonDumpData() )->getFiveEntitiesDumpPath() );
 
 		$this->assertFindsAnotherJsonLine( $reader );
