@@ -45,7 +45,19 @@ and `.json.bz2`). The iterators all depend on a `DumpReader`, and allow you to e
 all entities in the dump. They differ in how much additional processing they do, from nothing (returning
 the JSON stings) to fully deserializing the entities into `EntityDocument` objects.
 
-**Reading some lines from a bz2 dump**
+**Reading some lines from a dump**
+
+```php
+$dumpReader = $factory->newExtractedDumpReader( '/tmp/wd-dump.json' );
+echo 'First line: ' . $dumpReader->nextJsonLine();
+echo 'Second line: ' . $dumpReader->nextJsonLine();
+```
+
+```php
+$dumpReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
+echo 'First line: ' . $dumpReader->nextJsonLine();
+echo 'Second line: ' . $dumpReader->nextJsonLine();
+```
 
 ```php
 $dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
@@ -56,7 +68,7 @@ echo 'Second line: ' . $dumpReader->nextJsonLine();
 **Iterating though the JSON**
 
 ```php
-$dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
+$dumpReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
 $dumpIterator = $factory->newStringDumpIterator( $dumpReader );
 
 foreach ( $dumpIterator as $jsonLine ) {
@@ -94,9 +106,13 @@ For a full CI run
 
 ## Release notes
 
+### Version 1.1.0 (2015-11-12)
+
+* Added `JsonDumpFactory::newGzDumpReader` for gzip dump support
+
 ### Version 1.0.1 (2015-11-10)
 
-* Fixed of-by-one error in resumption of `ExtractedDumpReader` via `getPosition`.
+* Fixed of-by-one error in resumption of `ExtractedDumpReader` via `getPosition`
 
 ### Version 1.0.0 (2015-11-08)
 

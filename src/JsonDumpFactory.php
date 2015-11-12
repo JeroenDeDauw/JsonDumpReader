@@ -8,6 +8,7 @@ use Wikibase\JsonDumpReader\Iterator\EntityDumpIterator;
 use Wikibase\JsonDumpReader\Iterator\ObjectDumpIterator;
 use Wikibase\JsonDumpReader\Reader\Bz2DumpReader;
 use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
+use Wikibase\JsonDumpReader\Reader\GzDumpReader;
 
 /**
  * Package public
@@ -20,6 +21,7 @@ class JsonDumpFactory {
 
 	/**
 	 * Creates a DumpReader that can read lines from a bz2 compressed JSON dump.
+	 * @since 1.0.0
 	 *
 	 * @param string $dumpFilePath
 	 *
@@ -30,7 +32,20 @@ class JsonDumpFactory {
 	}
 
 	/**
+	 * Creates a DumpReader that can read lines from a bz2 compressed JSON dump.
+	 * @since 1.1.0
+	 *
+	 * @param string $dumpFilePath
+	 *
+	 * @return DumpReader
+	 */
+	public function newGzDumpReader( $dumpFilePath ) {
+		return new GzDumpReader( $dumpFilePath );
+	}
+
+	/**
 	 * Creates a DumpReader that can read lines from an uncompressed JSON dump.
+	 * @since 1.0.0
 	 *
 	 * @param string $dumpFilePath
 	 * @param int $initialPosition
@@ -43,6 +58,7 @@ class JsonDumpFactory {
 
 	/**
 	 * Creates an Iterator over each JSON serialized Entity in the dump.
+	 * @since 1.0.0
 	 *
 	 * @param DumpReader $dumpReader
 	 * @param callable $onError Gets called with a single string parameter on error
@@ -79,6 +95,7 @@ class JsonDumpFactory {
 	/**
 	 * Creates an Iterator over each Entity in the dump as PHP array/object in the JSON format.
 	 * This is essentially a json_decode map of the string dump iterator.
+	 * @since 1.0.0
 	 *
 	 * @param DumpReader $dumpReader
 	 * @param callable $onError Gets called with a single string parameter on error
@@ -97,6 +114,7 @@ class JsonDumpFactory {
 
 	/**
 	 * Creates an Iterator over each Entity in the dump, fully deserialized as EntityDocument.
+	 * @since 1.0.0
 	 *
 	 * @param DumpReader $dumpReader
 	 * @param Deserializer $entityDeserializer

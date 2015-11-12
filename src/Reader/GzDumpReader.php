@@ -11,7 +11,7 @@ use Wikibase\JsonDumpReader\DumpReadingException;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class Bz2DumpReader implements DumpReader {
+class GzDumpReader implements DumpReader {
 
 	/**
 	 * @var string
@@ -22,8 +22,6 @@ class Bz2DumpReader implements DumpReader {
 	 * @var resource|null
 	 */
 	private $handle = null;
-
-	private $lines = [ '' ];
 
 	/**
 	 * @param string $dumpFilePath
@@ -38,7 +36,7 @@ class Bz2DumpReader implements DumpReader {
 
 	private function closeReader() {
 		if ( is_resource( $this->handle ) ) {
-			bzclose( $this->handle );
+			gzclose( $this->handle );
 			$this->handle = null;
 		}
 	}
@@ -46,12 +44,11 @@ class Bz2DumpReader implements DumpReader {
 	public function rewind() {
 		$this->closeReader();
 		$this->initReader();
-		$this->lines = [ '' ];
 	}
 
 	private function initReader() {
 		if ( $this->handle === null ) {
-			$this->handle = @bzopen( $this->dumpFile, 'r' );
+			$this->handle = @gzopen( $this->dumpFile, 'r' );
 
 			if ( $this->handle === false ) {
 				throw new DumpReadingException( 'Could not open file: ' . $this->dumpFile );
@@ -67,34 +64,19 @@ class Bz2DumpReader implements DumpReader {
 		$this->initReader();
 
 		do {
-			$line = $this->nextLine();
+			if ( gzeof( $this->handle ) ) {
+				return null;
+			}
 
-			if ( $line === null ) {
+			$line = @gzgets( $this->handle );
+
+			if ( $line === false ) {
 				return null;
 			}
 		}
 		while ( $line === '' || $line{0} !== '{' );
 
 		return rtrim( $line, ",\n\r" );
-	}
-
-	private function nextLine() {
-		while ( !feof( $this->handle ) && count( $this->lines ) === 1 ) {
-			$readString = bzread( $this->handle, 4096 );
-
-			if ( bzerrno( $this->handle ) !== 0 ) {
-				throw new DumpReadingException( 'Decompression error: ' . bzerrstr( $this->handle ) );
-			}
-
-			if ( $readString === false ) {
-				break;
-			}
-
-			$this->lines[0] .= $readString;
-			$this->lines = explode( "\n", $this->lines[0] );
-		}
-
-		return array_shift( $this->lines );
 	}
 
 }
