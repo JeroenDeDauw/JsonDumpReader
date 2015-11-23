@@ -19,15 +19,22 @@ class GzDumpReader implements SeekableDumpReader {
 	private $dumpFile;
 
 	/**
+	 * @var int
+	 */
+	private $initialPosition;
+
+	/**
 	 * @var resource|null
 	 */
 	private $handle = null;
 
 	/**
 	 * @param string $dumpFilePath
+	 * @param int $initialPosition
 	 */
-	public function __construct( $dumpFilePath ) {
+	public function __construct( $dumpFilePath, $initialPosition = 0 ) {
 		$this->dumpFile = $dumpFilePath;
+		$this->initialPosition = $initialPosition;
 	}
 
 	public function __destruct() {
@@ -53,6 +60,8 @@ class GzDumpReader implements SeekableDumpReader {
 			if ( $this->handle === false ) {
 				throw new DumpReadingException( 'Could not open file: ' . $this->dumpFile );
 			}
+
+			$this->seekToPosition( $this->initialPosition );
 		}
 	}
 

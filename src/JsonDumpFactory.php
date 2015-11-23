@@ -21,26 +21,15 @@ class JsonDumpFactory {
 
 	/**
 	 * Creates a DumpReader that can read lines from a bz2 compressed JSON dump.
-	 * @since 1.0.0
-	 *
-	 * @param string $dumpFilePath
-	 *
-	 * @return DumpReader
-	 */
-	public function newBz2DumpReader( $dumpFilePath ) {
-		return new Bz2DumpReader( $dumpFilePath );
-	}
-
-	/**
-	 * Creates a DumpReader that can read lines from a bz2 compressed JSON dump.
 	 * @since 1.1.0
 	 *
 	 * @param string $dumpFilePath
+	 * @param int $initialPosition since 1.3.0
 	 *
 	 * @return SeekableDumpReader
 	 */
-	public function newGzDumpReader( $dumpFilePath ) {
-		return new GzDumpReader( $dumpFilePath );
+	public function newGzDumpReader( $dumpFilePath, $initialPosition = 0 ) {
+		return new GzDumpReader( $dumpFilePath, $initialPosition );
 	}
 
 	/**
@@ -54,6 +43,18 @@ class JsonDumpFactory {
 	 */
 	public function newExtractedDumpReader( $dumpFilePath, $initialPosition = 0 ) {
 		return new ExtractedDumpReader( $dumpFilePath, $initialPosition );
+	}
+
+	/**
+	 * Creates a DumpReader that can read lines from a bz2 compressed JSON dump.
+	 * @since 1.0.0
+	 *
+	 * @param string $dumpFilePath
+	 *
+	 * @return DumpReader
+	 */
+	public function newBz2DumpReader( $dumpFilePath ) {
+		return new Bz2DumpReader( $dumpFilePath );
 	}
 
 	/**

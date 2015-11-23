@@ -46,7 +46,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 				throw new DumpReadingException( 'Could not open file: ' . $this->dumpFile );
 			}
 
-			fseek( $this->handle, $this->initialPosition );
+			$this->seekToPosition( $this->initialPosition );
 		}
 	}
 

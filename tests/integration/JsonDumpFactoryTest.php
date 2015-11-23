@@ -82,4 +82,21 @@ class JsonDumpFactoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertCount( 5, $iterator );
 	}
 
+	public function testGzReaderInitialPosition() {
+		$reader = $this->factory->newGzDumpReader( $this->dumpData->getFiveEntitiesGzDumpPath() );
+
+		$reader->nextJsonLine();
+		$reader->nextJsonLine();
+		$reader->nextJsonLine();
+
+		$newReader = $this->factory->newGzDumpReader(
+			$this->dumpData->getFiveEntitiesGzDumpPath(),
+			$reader->getPosition()
+		);
+
+		$this->assertJson( $newReader->nextJsonLine() );
+		$this->assertJson( $newReader->nextJsonLine() );
+		$this->assertNull( $newReader->nextJsonLine() );
+	}
+
 }

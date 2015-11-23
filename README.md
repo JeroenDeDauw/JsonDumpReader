@@ -119,6 +119,10 @@ For a full CI run
 
 ## Release notes
 
+### Version 1.3.0 (2015-11-23)
+
+* `JsonDumpFactory::newGzDumpReader` now takes an optional `$initialPosition` argument
+
 ### Version 1.2.0 (2015-11-23)
 
 * Added `SeekableDumpReader` interface
