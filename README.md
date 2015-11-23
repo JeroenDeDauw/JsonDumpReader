@@ -87,6 +87,20 @@ foreach ( $dumpIterator as $entityDocument ) {
 }
 ```
 
+**Resume reading from a previous position**
+
+```php
+$dumpReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
+echo 'First line: ' . $dumpReader->nextJsonLine();
+echo 'Second line: ' . $dumpReader->nextJsonLine();
+
+$newReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
+$newReader->seekToPosition( $dumpReader->getPosition() );
+
+echo 'Third line: ' . $newReader->nextJsonLine();
+```
+
+
 The iterator approach taken by this library is lazy and can easily be combined with iterator tools
 provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
 
