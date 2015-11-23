@@ -45,7 +45,7 @@ and `.json.bz2`). The iterators all depend on a `DumpReader`, and allow you to e
 all entities in the dump. They differ in how much additional processing they do, from nothing (returning
 the JSON stings) to fully deserializing the entities into `EntityDocument` objects.
 
-**Reading some lines from a dump**
+### Reading some lines from a dump
 
 ```php
 $dumpReader = $factory->newExtractedDumpReader( '/tmp/wd-dump.json' );
@@ -65,7 +65,7 @@ echo 'First line: ' . $dumpReader->nextJsonLine();
 echo 'Second line: ' . $dumpReader->nextJsonLine();
 ```
 
-**Iterating though the JSON**
+### Iterating though the JSON
 
 ```php
 $dumpReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
@@ -76,7 +76,7 @@ foreach ( $dumpIterator as $jsonLine ) {
 }
 ```
 
-**Creating an EntityDocument iterator**
+### Creating an EntityDocument iterator
 
 ```php
 $dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
@@ -87,7 +87,7 @@ foreach ( $dumpIterator as $entityDocument ) {
 }
 ```
 
-**Resume reading from a previous position**
+### Resume reading from a previous position
 
 ```php
 $dumpReader = $factory->newGzDumpReader( '/tmp/wd-dump.json.gz' );
