@@ -37,7 +37,7 @@ class JsonDumpFactory {
 	 *
 	 * @param string $dumpFilePath
 	 *
-	 * @return DumpReader
+	 * @return SeekableDumpReader
 	 */
 	public function newGzDumpReader( $dumpFilePath ) {
 		return new GzDumpReader( $dumpFilePath );
@@ -50,7 +50,7 @@ class JsonDumpFactory {
 	 * @param string $dumpFilePath
 	 * @param int $initialPosition
 	 *
-	 * @return ExtractedDumpReader
+	 * @return SeekableDumpReader
 	 */
 	public function newExtractedDumpReader( $dumpFilePath, $initialPosition = 0 ) {
 		return new ExtractedDumpReader( $dumpFilePath, $initialPosition );

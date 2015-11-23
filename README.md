@@ -106,6 +106,13 @@ For a full CI run
 
 ## Release notes
 
+### Version 1.2.0 (2015-11-23)
+
+* Added `SeekableDumpReader` interface
+	* `JsonDumpFactory::newGzDumpReader` now returns a `SeekableDumpReader`
+	* `JsonDumpFactory::newExtractedDumpReader` now returns a `SeekableDumpReader`
+* `ExtractedDumpReader` is now package private (no breaking changes to it will be made before 2.0)
+
 ### Version 1.1.0 (2015-11-12)
 
 * Added `JsonDumpFactory::newGzDumpReader` for gzip dump support

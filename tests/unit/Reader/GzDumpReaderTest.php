@@ -49,4 +49,19 @@ class GzDumpReaderTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFindsEntity( $reader, 'Q1' );
 	}
 
+	public function testResumeFromPosition() {
+		$reader = new GzDumpReader( ( new \JsonDumpData() )->getFiveEntitiesGzDumpPath() );
+
+		$this->assertFindsEntity( $reader, 'Q1' );
+		$this->assertFindsEntity( $reader, 'Q8' );
+
+		$position = $reader->getPosition();
+		unset( $reader );
+
+		$newReader = new GzDumpReader( ( new \JsonDumpData() )->getFiveEntitiesGzDumpPath() );
+		$newReader->seekToPosition( $position );
+
+		$this->assertFindsEntity( $newReader, 'P16' );
+	}
+
 }

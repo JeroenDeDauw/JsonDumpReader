@@ -2,7 +2,7 @@
 
 namespace Wikibase\JsonDumpReader\Reader;
 
-use Wikibase\JsonDumpReader\DumpReader;
+use Wikibase\JsonDumpReader\SeekableDumpReader;
 use Wikibase\JsonDumpReader\DumpReadingException;
 
 /**
@@ -11,7 +11,7 @@ use Wikibase\JsonDumpReader\DumpReadingException;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GzDumpReader implements DumpReader {
+class GzDumpReader implements SeekableDumpReader {
 
 	/**
 	 * @var string
@@ -77,6 +77,37 @@ class GzDumpReader implements DumpReader {
 		while ( $line === '' || $line{0} !== '{' );
 
 		return rtrim( $line, ",\n\r" );
+	}
+
+	/**
+	 * @return int
+	 * @throws DumpReadingException
+	 */
+	public function getPosition() {
+		if ( PHP_INT_SIZE < 8 ) {
+			throw new DumpReadingException( 'Cannot reliably get the file position on 32bit PHP' );
+		}
+
+		$this->initReader();
+		$position = @gztell( $this->handle );
+
+		if ( !is_int( $position ) ) {
+			throw new DumpReadingException( 'Could not tell the position of the file handle' );
+		}
+
+		return $position;
+	}
+
+	/**
+	 * @param int $position
+	 */
+	public function seekToPosition( $position ) {
+		$this->initReader();
+		$seekResult = @gzseek( $this->handle, $position );
+
+		if ( $seekResult !== 0 ) {
+			throw new DumpReadingException( 'Seeking to position failed' );
+		}
 	}
 
 }

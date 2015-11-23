@@ -3,17 +3,17 @@
 namespace Wikibase\JsonDumpReader\Reader;
 
 use RuntimeException;
-use Wikibase\JsonDumpReader\DumpReader;
 use Wikibase\JsonDumpReader\DumpReadingException;
+use Wikibase\JsonDumpReader\SeekableDumpReader;
 
 /**
- * Package public
- * @since 1.0.0
+ * Package private
+ * Was public in 1.0.x and 1.1.x. No breaking changes before 2.0.
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ExtractedDumpReader implements DumpReader {
+class ExtractedDumpReader implements SeekableDumpReader {
 
 	/**
 	 * @var string
@@ -91,7 +91,7 @@ class ExtractedDumpReader implements DumpReader {
 
 	/**
 	 * @return int
-	 * @throws RuntimeException
+	 * @throws DumpReadingException
 	 */
 	public function getPosition() {
 		if ( PHP_INT_SIZE < 8 ) {
