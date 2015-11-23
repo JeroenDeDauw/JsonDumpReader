@@ -2,7 +2,6 @@
 
 namespace Wikibase\JsonDumpReader\Reader;
 
-use RuntimeException;
 use Wikibase\JsonDumpReader\DumpReadingException;
 use Wikibase\JsonDumpReader\SeekableDumpReader;
 
@@ -95,19 +94,30 @@ class ExtractedDumpReader implements SeekableDumpReader {
 	 */
 	public function getPosition() {
 		if ( PHP_INT_SIZE < 8 ) {
-			throw new RuntimeException( 'Cannot reliably get the file position on 32bit PHP' );
+			throw new DumpReadingException( 'Cannot reliably get the file position on 32bit PHP' );
 		}
 
 		$this->initReader();
-		return ftell( $this->handle );
+		$position = @ftell( $this->handle );
+
+		if ( !is_int( $position ) ) {
+			throw new DumpReadingException( 'Could not tell the position of the file handle' );
+		}
+
+		return $position;
 	}
 
 	/**
 	 * @param int $position
+	 * @throws DumpReadingException
 	 */
 	public function seekToPosition( $position ) {
 		$this->initReader();
-		fseek( $this->handle, $position );
+		$seekResult = @fseek( $this->handle, $position );
+
+		if ( $seekResult !== 0 ) {
+			throw new DumpReadingException( 'Seeking to position failed' );
+		}
 	}
 
 }

@@ -100,6 +100,7 @@ class GzDumpReader implements SeekableDumpReader {
 
 	/**
 	 * @param int $position
+	 * @throws DumpReadingException
 	 */
 	public function seekToPosition( $position ) {
 		$this->initReader();
