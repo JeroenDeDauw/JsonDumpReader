@@ -93,15 +93,25 @@ foreach ( $dumpIterator as $jsonLine ) {
 
 ```php
 $dumpReader = $factory->newBz2DumpReader( '/tmp/wd-dump.json.bz2' );
-$dumpIterator = $factory->newEntityDumpIterator( $dumpReader );
+$dumpIterator = $factory->newEntityDumpIterator( $dumpReader, /* Deserializer */ $entityDeserializer );
 
 foreach ( $dumpIterator as $entityDocument ) {
 	echo 'At entity ' . $entityDocument->getId()->getSerialization();
 }
 ```
 
+You can construct an appropriate entity `Deserializer` via the [Wikibase DataModel Serialization library](https://github.com/wmde/WikibaseDataModelSerialization).
+
+### Comnining iterators
+
 The iterator approach taken by this library is lazy and can easily be combined with iterator tools
 provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
+
+### More documentation and examples
+
+To get documentation that is never out of date and always fully correct for your version of the library,
+have a look at the public methods in `sec/JsonDumpFactory.php`. Every public method has at least one
+test, so you can find good examples in the tests directory.
 
 ## Running the tests
 
