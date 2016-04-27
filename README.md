@@ -177,4 +177,4 @@ Initial release with
 ## See also
 
 * [Replicator](https://github.com/JeroenDeDauw/Replicator) a CLI application using JsonDumpReader
-* [Wikibase component](http://wikiba.se/components/) various libraries for working with Wikibase/Wikidata
+* [Wikibase components](http://wikiba.se/components/) various libraries for working with Wikibase/Wikidata
