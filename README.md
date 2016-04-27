@@ -110,7 +110,7 @@ provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
 ### More documentation and examples
 
 To get documentation that is never out of date and always fully correct for your version of the library,
-have a look at the public methods in `sec/JsonDumpFactory.php`. Every public method has at least one
+have a look at the public methods in `src/JsonDumpFactory.php`. Every public method has at least one
 test, so you can find good examples in the tests directory.
 
 ## Running the tests
