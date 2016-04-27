@@ -12,6 +12,12 @@ use Wikibase\JsonDumpReader\Reader\Bz2DumpReader;
  */
 class Bz2DumpReaderTest extends \PHPUnit_Framework_TestCase {
 
+	public function setUp() {
+		if ( !function_exists( 'bzopen' ) ) {
+			self::markTestSkipped( 'bz2 is not installed' );
+		}
+	}
+
 	private function assertFindsEntity( Bz2DumpReader $reader, $expectedId ) {
 		$line = $reader->nextJsonLine();
 		$this->assertJson( $line );
