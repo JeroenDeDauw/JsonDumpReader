@@ -17,7 +17,7 @@ use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class JsonDumpIteratorTest extends \PHPUnit_Framework_TestCase {
+class EntityDumpIteratorTest extends \PHPUnit_Framework_TestCase {
 
 	private function newIteratorForFile( $filePath, callable $onError = null ) {
 		return ( new JsonDumpFactory() )->newEntityDumpIterator(
