@@ -40,6 +40,10 @@ class JsonDumpFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testBz2DumpReaderCanReadBz2File() {
+		if ( !function_exists( 'bzopen' ) ) {
+			self::markTestSkipped( 'bz2 is not installed' );
+		}
+
 		$reader = $this->factory->newBz2DumpReader( $this->dumpData->getFiveEntitiesBz2DumpPath() );
 
 		$this->assertJson( $reader->nextJsonLine() );
@@ -71,6 +75,10 @@ class JsonDumpFactoryTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testObjectDumpIteratorWithBz2Reader() {
+		if ( !function_exists( 'bzopen' ) ) {
+			self::markTestSkipped( 'bz2 is not installed' );
+		}
+
 		$iterator = $this->factory->newObjectDumpIterator(
 			$this->factory->newBz2DumpReader( $this->dumpData->getFiveEntitiesBz2DumpPath() )
 		);
