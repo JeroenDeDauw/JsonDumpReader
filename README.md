@@ -173,3 +173,8 @@ Initial release with
 
 * `JsonDumpReader` to read entity JSON from the dump
 * `JsonDumpIterator` to iterate through the dump as if it was a collection of `EntityDocument`
+
+## See also
+
+* [Replicator](https://github.com/JeroenDeDauw/Replicator) a CLI application using JsonDumpReader
+* [Wikibase component](http://wikiba.se/components/) various libraries for working with Wikibase/Wikidata
