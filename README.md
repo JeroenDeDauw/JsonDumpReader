@@ -102,7 +102,8 @@ foreach ( $dumpIterator as $entityDocument ) {
 
 The second argument needs to be an instance of  `Deserializer` that can deserialize entities.
 Such an instance is typically constructed via the [Wikibase DataModel Serialization library](https://github.com/wmde/WikibaseDataModelSerialization). For an example of how to
-do this, see the `tests/integration/EntityDumpIteratorTest.php` file.
+do this, see the `tests/integration/EntityDumpIteratorTest.php` file. Note that this code
+has [additional dependencies](https://github.com/JeroenDeDauw/JsonDumpReader/blob/bcb260f2a04193490f69b1bc794c1788aa235888/composer.json#L30-L33).
 
 ### Comnining iterators
 
