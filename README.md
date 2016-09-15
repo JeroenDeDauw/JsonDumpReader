@@ -105,7 +105,7 @@ Such an instance is typically constructed via the [Wikibase DataModel Serializat
 do this, see the `tests/integration/EntityDumpIteratorTest.php` file. Note that this code
 has [additional dependencies](https://github.com/JeroenDeDauw/JsonDumpReader/blob/bcb260f2a04193490f69b1bc794c1788aa235888/composer.json#L30-L33).
 
-### Comnining iterators
+### Combining iterators
 
 The iterator approach taken by this library is lazy and can easily be combined with iterator tools
 provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
