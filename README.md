@@ -12,7 +12,7 @@
 entities in a Wikibase Repository JSON dump. You can find more information on the format on the
 [Wikidata dump download page](https://www.wikidata.org/wiki/Wikidata:Database_download).
 
-Works with PHP 5.5+, including PHP7
+Works with PHP 5.5+, including PHP 7.x
 
 ## Installation
 
@@ -131,6 +131,11 @@ For a full CI run
 	composer ci
 
 ## Release notes
+
+### Version 1.4.0 (2017-03-03)
+
+* Dropped PHP 5.5 support
+* Compatibility with PHP 7.1 is now assured
 
 ### Version 1.3.0 (2015-11-23)
 
