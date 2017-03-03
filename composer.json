@@ -17,22 +17,29 @@
 		}
 	],
 	"require": {
-		"php": ">=5.5.0",
+		"php": ">=5.6.0",
 		"jeroen/rewindable-generator": "~1.1",
 		"wikibase/data-model-serialization": "~1.1|~2.0"
 	},
 	"require-dev": {
+		"phpunit/phpunit": "~5.7",
 		"whatthejeff/nyancat-phpunit-resultprinter": "~1.2",
 		"ockcyp/covers-validator": "~0.4.0",
 		"squizlabs/php_codesniffer": "~2.3",
 		"phpmd/phpmd": "~2.3",
 
 		"data-values/iri": "~0.1",
-		"data-values/number": "~0.1",
-		"data-values/geo": "~1.0",
-		"data-values/time": "~0.6",
+		"data-values/number": "^0.8.2",
+		"data-values/geo": "^1.2.1",
+		"data-values/time": "^0.8.4",
 
 		"jeroen/json-dump-data": "~1.0"
+	},
+	"suggest": {
+		"data-values/geo": "Needed when using the EntityDocument iterator to read geographical values",
+		"data-values/number": "Needed when using the EntityDocument iterator to read numerical values",
+		"data-values/time": "Needed when using the EntityDocument iterator to read time values",
+		"data-values/iri": "Needed when using the EntityDocument iterator to read IRI values"
 	},
 	"autoload": {
 		"psr-4": {
