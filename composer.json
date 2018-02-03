@@ -9,7 +9,7 @@
 		"bz2"
 	],
 	"homepage": "https://github.com/JeroenDeDauw/JsonDumpReader",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Jeroen De Dauw",
