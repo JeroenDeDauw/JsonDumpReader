@@ -23,6 +23,6 @@ interface SeekableDumpReader extends DumpReader {
 	 * @param int $position
 	 * @throws DumpReadingException
 	 */
-	public function seekToPosition( int $position );
+	public function seekToPosition( int $position ): void;
 
 }

@@ -113,7 +113,7 @@ class GzDumpReader implements SeekableDumpReader {
 	 * @param int $position
 	 * @throws DumpReadingException
 	 */
-	public function seekToPosition( $position ) {
+	public function seekToPosition( int $position ): void {
 		$this->initReader();
 		$seekResult = @gzseek( $this->handle, $position );
 

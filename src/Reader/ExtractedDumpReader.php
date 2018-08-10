@@ -113,7 +113,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 	 * @param int $position
 	 * @throws DumpReadingException
 	 */
-	public function seekToPosition( $position ) {
+	public function seekToPosition( int $position ): void {
 		$this->initReader();
 		$seekResult = @fseek( $this->handle, $position );
 
