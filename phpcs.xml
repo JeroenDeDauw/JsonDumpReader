@@ -4,6 +4,9 @@
 	- https://github.com/squizlabs/PHP_CodeSniffer/tree/master/CodeSniffer/Standards
 -->
 <ruleset name="JsonDumpReader">
+    <file>src/</file>
+    <file>tests/</file>
+
     <rule ref="Generic.Classes" />
     <rule ref="Generic.CodeAnalysis" />
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.Found">

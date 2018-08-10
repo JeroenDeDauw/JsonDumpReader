@@ -15,10 +15,9 @@ Works with PHP 5.5+, including PHP 7.x
 
 ## Installation
 
-To add this package as a local, per-project dependency to your project, simply add a
-dependency on `jeroen/json-dump-reader` to your project's `composer.json` file.
-Here is a minimal example of a `composer.json` file that just defines a dependency on
-JsonDumpReader 1.x:
+To use the JsonDumpReader library in your project, simply add a dependency on `jeroen/json-dump-reader`
+to your project's `composer.json` file. Here is a minimal example of a `composer.json`
+file that just defines a dependency on JsonDumpReader 1.x:
 
 ```json
 {
@@ -115,7 +114,11 @@ To get documentation that is never out of date and always fully correct for your
 have a look at the public methods in `src/JsonDumpFactory.php`. Every public method has at least one
 test, so you can find good examples in the tests directory.
 
-## Running the tests
+## Development
+
+### Running CI checks and tests locally
+
+If you have PHP and Composer installed locally, you do not need Docker and can just execute composer commands.
 
 For tests only
 
@@ -128,6 +131,42 @@ For style checks only
 For a full CI run
 
 	composer ci
+
+### Docker: installation
+
+You can develop without having a local installation of PHP or Composer by using Docker. Install it with
+
+    sudo apt-get install docker docker-compose
+
+### Docker: Running Composer
+
+To pull in the project dependencies via Composer, run:
+
+    make composer install
+
+You can run other Composer commands via `make run`, but at present this does not support argument flags.
+If you need to execute such a command, you can do so in this format:
+
+    docker run --rm --interactive --tty --volume $PWD:/app -w /app\
+     --volume ~/.composer:/composer --user $(id -u):$(id -g) composer composer install --no-scripts
+
+Where `composer install --no-scripts` is the command being run.
+
+### Docker: Running the CI checks
+
+To run all CI checks, which includes PHPUnit tests, PHPCS style checks and coverage tag validation, run:
+
+    make
+    
+### Docker: Running the tests
+
+To run just the PHPUnit tests run
+
+    make test
+
+To run only a subset of PHPUnit tests or otherwise pass flags to PHPUnit, run
+
+    docker-compose run --rm app ./vendor/bin/phpunit --filter SomeClassNameOrFilter
 
 ## Release notes
 
