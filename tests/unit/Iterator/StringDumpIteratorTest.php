@@ -2,17 +2,18 @@
 
 namespace Tests\Wikibase\JsonDumpReader\Iterator;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 use Wikibase\JsonDumpReader\Reader\FakeDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\JsonDumpFactory
- * @covers Wikibase\JsonDumpReader\Reader\FakeDumpReader
+ * @covers \Wikibase\JsonDumpReader\JsonDumpFactory
+ * @covers \Wikibase\JsonDumpReader\Reader\FakeDumpReader
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class StringDumpIteratorTest extends \PHPUnit_Framework_TestCase {
+class StringDumpIteratorTest extends TestCase {
 
 	public function testAdaptsDumpReaderToIterator() {
 		$lines = [ 'foo', 'bar', 'baz' ];

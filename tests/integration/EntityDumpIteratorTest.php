@@ -4,6 +4,7 @@ namespace Tests\Wikibase\JsonDumpReader;
 
 use DataValues\Deserializers\DataValueDeserializer;
 use Iterator;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\JsonDumpReader\Iterator\EntityDumpIterator;
@@ -11,13 +12,13 @@ use Wikibase\JsonDumpReader\JsonDumpFactory;
 use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\Iterator\EntityDumpIterator
- * @covers Wikibase\JsonDumpReader\JsonDumpFactory
+ * @covers \Wikibase\JsonDumpReader\Iterator\EntityDumpIterator
+ * @covers \Wikibase\JsonDumpReader\JsonDumpFactory
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class EntityDumpIteratorTest extends \PHPUnit_Framework_TestCase {
+class EntityDumpIteratorTest extends TestCase {
 
 	private function newIteratorForFile( $filePath, callable $onError = null ) {
 		return ( new JsonDumpFactory() )->newEntityDumpIterator(

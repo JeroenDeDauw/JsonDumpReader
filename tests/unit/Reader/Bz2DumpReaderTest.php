@@ -2,15 +2,16 @@
 
 namespace Tests\Wikibase\JsonDumpReader\Reader;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\Reader\Bz2DumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\Reader\Bz2DumpReader
+ * @covers \Wikibase\JsonDumpReader\Reader\Bz2DumpReader
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class Bz2DumpReaderTest extends \PHPUnit_Framework_TestCase {
+class Bz2DumpReaderTest extends TestCase {
 
 	public function setUp() {
 		if ( !function_exists( 'bzopen' ) ) {
@@ -25,7 +26,7 @@ class Bz2DumpReaderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenInvalidPath_exceptionIsThrown() {
-		$this->setExpectedException( 'RuntimeException' );
+		$this->expectException( 'RuntimeException' );
 		$reader = new Bz2DumpReader( __DIR__ . '/../../data/does-not-exist.json.bz2' );
 		$reader->nextJsonLine();
 	}

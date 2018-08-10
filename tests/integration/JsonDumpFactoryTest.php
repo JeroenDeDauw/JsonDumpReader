@@ -3,15 +3,16 @@
 namespace Tests\Wikibase\JsonDumpReader;
 
 use JsonDumpData;
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 
 /**
- * @covers Wikibase\JsonDumpReader\JsonDumpFactory
+ * @covers \Wikibase\JsonDumpReader\JsonDumpFactory
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class JsonDumpFactoryTest extends \PHPUnit_Framework_TestCase {
+class JsonDumpFactoryTest extends TestCase {
 
 	/**
 	 * @var JsonDumpFactory

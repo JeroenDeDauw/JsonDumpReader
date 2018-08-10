@@ -2,18 +2,19 @@
 
 namespace Tests\Wikibase\JsonDumpReader\Reader;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\Reader\GzDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\Reader\GzDumpReader
+ * @covers \Wikibase\JsonDumpReader\Reader\GzDumpReader
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GzDumpReaderTest extends \PHPUnit_Framework_TestCase {
+class GzDumpReaderTest extends TestCase {
 
 	public function testGivenInvalidGzPath_exceptionIsThrown() {
-		$this->setExpectedException( 'RuntimeException' );
+		$this->expectException( 'RuntimeException' );
 		$reader = new GzDumpReader( __DIR__ . '/../../data/does-not-exist.json.gz' );
 		$reader->nextJsonLine();
 	}

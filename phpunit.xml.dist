@@ -9,10 +9,7 @@
          stopOnError="false"
          stopOnFailure="false"
          stopOnIncomplete="false"
-         stopOnSkipped="false"
-         printerFile="vendor/whatthejeff/nyancat-phpunit-resultprinter/src/NyanCat/PHPUnit/ResultPrinter.php"
-         printerClass="NyanCat\PHPUnit\ResultPrinter"
-         verbose="true">
+         stopOnSkipped="false">
     <testsuites>
         <testsuite name="JsonDumpReaderTests">
             <directory>tests/unit</directory>

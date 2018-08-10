@@ -170,10 +170,15 @@ To run only a subset of PHPUnit tests or otherwise pass flags to PHPUnit, run
 
 ## Release notes
 
+### Version 1.5.0 (2018-08-10)
+
+* Added support for PHP 7.3
+* Dropped support for PHP 5.6 and PHP 7.0
+
 ### Version 1.4.0 (2017-03-03)
 
-* Dropped PHP 5.5 support
-* Compatibility with PHP 7.1 is now assured
+* Added support for PHP 7.1 and PHP 7.2
+* Dropped support for PHP 5.5 
 
 ### Version 1.3.0 (2015-11-23)
 

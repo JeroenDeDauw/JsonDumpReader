@@ -2,15 +2,16 @@
 
 namespace Tests\Wikibase\JsonDumpReader\Reader;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\Reader\ExtractedDumpReader
+ * @covers \Wikibase\JsonDumpReader\Reader\ExtractedDumpReader
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ExtractedDumpReaderTest extends \PHPUnit_Framework_TestCase {
+class ExtractedDumpReaderTest extends TestCase {
 
 	private function assertFindsAnotherJsonLine( ExtractedDumpReader $reader ) {
 		$this->assertJson( $reader->nextJsonLine() );

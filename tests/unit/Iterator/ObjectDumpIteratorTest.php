@@ -2,18 +2,19 @@
 
 namespace Tests\Wikibase\JsonDumpReader\Iterator;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 use Wikibase\JsonDumpReader\Reader\FakeDumpReader;
 
 /**
- * @covers Wikibase\JsonDumpReader\Iterator\ObjectDumpIterator
- * @covers Wikibase\JsonDumpReader\Reader\FakeDumpReader
- * @covers Wikibase\JsonDumpReader\JsonDumpFactory
+ * @covers \Wikibase\JsonDumpReader\Iterator\ObjectDumpIterator
+ * @covers \Wikibase\JsonDumpReader\Reader\FakeDumpReader
+ * @covers \Wikibase\JsonDumpReader\JsonDumpFactory
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class ObjectDumpIteratorTest extends \PHPUnit_Framework_TestCase {
+class ObjectDumpIteratorTest extends TestCase {
 
 	private function getIteratorWithReaderReturning( $lines ) {
 		return ( new JsonDumpFactory() )->newObjectDumpIterator( new FakeDumpReader( $lines ) );
