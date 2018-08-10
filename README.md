@@ -11,8 +11,6 @@
 entities in a Wikibase Repository JSON dump. You can find more information on the format on the
 [Wikidata dump download page](https://www.wikidata.org/wiki/Wikidata:Database_download).
 
-Works with PHP 5.5+, including PHP 7.x
-
 ## Installation
 
 To use the JsonDumpReader library in your project, simply add a dependency on `jeroen/json-dump-reader`
@@ -26,6 +24,12 @@ file that just defines a dependency on JsonDumpReader 1.x:
     }
 }
 ```
+
+Supported PHP versions:
+
+* JsonDumpReader 2.x: 7.1 - 7.3+
+* JsonDumpReader 1.4: 5.6 - 7.2
+* JsonDumpReader 1.3: 5.5 - 7.2
 
 ## Usage
 
