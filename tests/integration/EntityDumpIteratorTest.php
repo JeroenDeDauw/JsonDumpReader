@@ -52,7 +52,7 @@ class EntityDumpIteratorTest extends TestCase {
 	private function newDataValueDeserializer() {
 		$dataValueClasses = [
 			'boolean' => BooleanValue::class,
-			'number' => NumberValue::class,SeekableDumpReader
+			'number' => NumberValue::class,
 			'string' => StringValue::class,
 			'unknown' => UnknownValue::class,
 			'globecoordinate' => GlobeCoordinateValue::class,
