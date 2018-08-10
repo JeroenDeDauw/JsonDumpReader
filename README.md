@@ -27,9 +27,9 @@ file that just defines a dependency on JsonDumpReader 1.x:
 
 Supported PHP versions:
 
-* JsonDumpReader 2.x: 7.1 - 7.3+
-* JsonDumpReader 1.4: 5.6 - 7.2
-* JsonDumpReader 1.3: 5.5 - 7.2
+* Version 2.x: 7.1 - 7.3+
+* Version 1.4: 5.6 - 7.2
+* Version 1.3: 5.5 - 7.2
 
 ## Usage
 
