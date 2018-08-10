@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader;
 
 /**
@@ -15,12 +17,12 @@ interface SeekableDumpReader extends DumpReader {
 	 * @return int
 	 * @throws DumpReadingException
 	 */
-	public function getPosition();
+	public function getPosition(): int;
 
 	/**
 	 * @param int $position
 	 * @throws DumpReadingException
 	 */
-	public function seekToPosition( $position );
+	public function seekToPosition( int $position );
 
 }

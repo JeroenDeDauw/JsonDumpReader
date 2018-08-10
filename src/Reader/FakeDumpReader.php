@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader\Reader;
 
 use Wikibase\JsonDumpReader\DumpReader;
@@ -26,14 +28,14 @@ class FakeDumpReader implements DumpReader {
 		$this->rewind();
 	}
 
-	public function rewind() {
+	public function rewind(): void {
 		reset( $this->lines );
 	}
 
 	/**
 	 * @return string|null
 	 */
-	public function nextJsonLine() {
+	public function nextJsonLine(): ?string {
 		$current = current( $this->lines );
 
 		if ( $current === false ) {

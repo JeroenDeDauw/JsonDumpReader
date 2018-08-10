@@ -170,10 +170,12 @@ To run only a subset of PHPUnit tests or otherwise pass flags to PHPUnit, run
 
 ## Release notes
 
-### Version 1.5.0 (2018-08-10)
+### Version 2.0.0 (2018-08-10)
 
 * Added support for PHP 7.3
 * Dropped support for PHP 5.6 and PHP 7.0
+* Added scalar and return type hints
+	* Breaking change for classes extending `DumpReader` or `SeekableDumpReader`
 
 ### Version 1.4.0 (2017-03-03)
 

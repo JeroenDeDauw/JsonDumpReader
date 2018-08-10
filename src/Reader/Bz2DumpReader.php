@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader\Reader;
 
 use Wikibase\JsonDumpReader\DumpReader;
@@ -43,7 +45,7 @@ class Bz2DumpReader implements DumpReader {
 		}
 	}
 
-	public function rewind() {
+	public function rewind(): void {
 		$this->closeReader();
 		$this->initReader();
 		$this->lines = [ '' ];
@@ -63,7 +65,7 @@ class Bz2DumpReader implements DumpReader {
 	 * @return string|null
 	 * @throws DumpReadingException
 	 */
-	public function nextJsonLine() {
+	public function nextJsonLine(): ?string {
 		$this->initReader();
 
 		do {

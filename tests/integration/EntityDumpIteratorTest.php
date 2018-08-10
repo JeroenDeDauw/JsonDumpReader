@@ -1,12 +1,24 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Tests\Wikibase\JsonDumpReader;
 
+use DataValues\BooleanValue;
 use DataValues\Deserializers\DataValueDeserializer;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\MonolingualTextValue;
+use DataValues\MultilingualTextValue;
+use DataValues\NumberValue;
+use DataValues\QuantityValue;
+use DataValues\StringValue;
+use DataValues\TimeValue;
+use DataValues\UnknownValue;
 use Iterator;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\JsonDumpReader\Iterator\EntityDumpIterator;
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
@@ -39,16 +51,16 @@ class EntityDumpIteratorTest extends TestCase {
 
 	private function newDataValueDeserializer() {
 		$dataValueClasses = [
-			'boolean' => 'DataValues\BooleanValue',
-			'number' => 'DataValues\NumberValue',
-			'string' => 'DataValues\StringValue',
-			'unknown' => 'DataValues\UnknownValue',
-			'globecoordinate' => 'DataValues\Geo\Values\GlobeCoordinateValue',
-			'monolingualtext' => 'DataValues\MonolingualTextValue',
-			'multilingualtext' => 'DataValues\MultilingualTextValue',
-			'quantity' => 'DataValues\QuantityValue',
-			'time' => 'DataValues\TimeValue',
-			'wikibase-entityid' => 'Wikibase\DataModel\Entity\EntityIdValue',
+			'boolean' => BooleanValue::class,
+			'number' => NumberValue::class,
+			'string' => StringValue::class,
+			'unknown' => UnknownValue::class,
+			'globecoordinate' => GlobeCoordinateValue::class,
+			'monolingualtext' => MonolingualTextValue::class,
+			'multilingualtext' => MultilingualTextValue::class,
+			'quantity' => QuantityValue::class,
+			'time' => TimeValue::class,
+			'wikibase-entityid' => EntityIdValue::class,
 		];
 
 		return new DataValueDeserializer( $dataValueClasses );

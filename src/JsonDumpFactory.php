@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader;
 
 use Deserializers\Deserializer;
@@ -28,7 +30,7 @@ class JsonDumpFactory {
 	 *
 	 * @return SeekableDumpReader
 	 */
-	public function newGzDumpReader( $dumpFilePath, $initialPosition = 0 ) {
+	public function newGzDumpReader( string $dumpFilePath, int $initialPosition = 0 ): SeekableDumpReader {
 		return new GzDumpReader( $dumpFilePath, $initialPosition );
 	}
 
@@ -41,7 +43,7 @@ class JsonDumpFactory {
 	 *
 	 * @return SeekableDumpReader
 	 */
-	public function newExtractedDumpReader( $dumpFilePath, $initialPosition = 0 ) {
+	public function newExtractedDumpReader( string $dumpFilePath, int $initialPosition = 0 ): SeekableDumpReader {
 		return new ExtractedDumpReader( $dumpFilePath, $initialPosition );
 	}
 
@@ -53,7 +55,7 @@ class JsonDumpFactory {
 	 *
 	 * @return DumpReader
 	 */
-	public function newBz2DumpReader( $dumpFilePath ) {
+	public function newBz2DumpReader( string $dumpFilePath ): DumpReader {
 		return new Bz2DumpReader( $dumpFilePath );
 	}
 
@@ -66,7 +68,7 @@ class JsonDumpFactory {
 	 *
 	 * @return Iterator string[]
 	 */
-	public function newStringDumpIterator( DumpReader $dumpReader, callable $onError = null ) {
+	public function newStringDumpIterator( DumpReader $dumpReader, callable $onError = null ): Iterator {
 		$iterator = new \RewindableGenerator( function() use ( $dumpReader, $onError ) {
 			while ( true ) {
 				try {
@@ -103,7 +105,7 @@ class JsonDumpFactory {
 	 *
 	 * @return Iterator array[]
 	 */
-	public function newObjectDumpIterator( DumpReader $dumpReader, callable $onError = null ) {
+	public function newObjectDumpIterator( DumpReader $dumpReader, callable $onError = null ): Iterator {
 		$iterator = new ObjectDumpIterator(
 			$this->newStringDumpIterator( $dumpReader, $onError )
 		);
@@ -123,7 +125,9 @@ class JsonDumpFactory {
 	 *
 	 * @return Iterator EntityDocument[]
 	 */
-	public function newEntityDumpIterator( DumpReader $dumpReader, Deserializer $entityDeserializer, callable $onError = null ) {
+	public function newEntityDumpIterator( DumpReader $dumpReader, Deserializer $entityDeserializer,
+		callable $onError = null ): Iterator {
+
 		$iterator = new EntityDumpIterator(
 			$this->newObjectDumpIterator( $dumpReader, $onError ),
 			$entityDeserializer

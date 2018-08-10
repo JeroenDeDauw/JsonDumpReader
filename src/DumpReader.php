@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader;
 
 /**
@@ -17,11 +19,11 @@ interface DumpReader {
 	 * @return string|null
 	 * @throws DumpReadingException
 	 */
-	public function nextJsonLine();
+	public function nextJsonLine(): ?string;
 
 	/**
 	 * Rewinds the reader to its initial position.
 	 */
-	public function rewind();
+	public function rewind(): void;
 
 }

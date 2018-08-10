@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\JsonDumpReader\Reader;
 
 use Wikibase\JsonDumpReader\DumpReadingException;
@@ -60,7 +62,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 		}
 	}
 
-	public function rewind() {
+	public function rewind(): void {
 		if ( $this->handle !== null ) {
 			fseek( $this->handle, $this->initialPosition );
 		}
@@ -70,7 +72,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 	 * @return string|null
 	 * @throws DumpReadingException
 	 */
-	public function nextJsonLine() {
+	public function nextJsonLine(): ?string {
 		$this->initReader();
 
 		while ( true ) {
@@ -92,7 +94,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 	 * @return int
 	 * @throws DumpReadingException
 	 */
-	public function getPosition() {
+	public function getPosition(): int {
 		if ( PHP_INT_SIZE < 8 ) {
 			throw new DumpReadingException( 'Cannot reliably get the file position on 32bit PHP' );
 		}
