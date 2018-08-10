@@ -1,6 +1,6 @@
 # JsonDumpReader
 
-[![Build Status](https://secure.travis-ci.org/JeroenDeDauw/JsonDumpReader.png?branch=master)](http://travis-ci.org/JeroenDeDauw/JsonDumpReader)
+[![Build Status](https://travis-ci.org/JeroenDeDauw/JsonDumpReader.svg?branch=master)](https://travis-ci.org/JeroenDeDauw/JsonDumpReader)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/?branch=master)
 
