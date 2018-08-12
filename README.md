@@ -174,7 +174,7 @@ To run only a subset of PHPUnit tests or otherwise pass flags to PHPUnit, run
 
 ## Release notes
 
-### Version 2.0.0 (2018-08-10)
+### Version 2.0.0 (dev)
 
 * Added support for PHP 7.3
 * Dropped support for PHP 5.6 and PHP 7.0
