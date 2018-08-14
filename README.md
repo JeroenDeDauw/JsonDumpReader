@@ -137,7 +137,7 @@ are current as of August 2018. You can use the latest versions that work for you
 libraries are placed by JsonDumpReader.
 
 ```json
-        "data-values/geo": "~3.0|~2.0",
+        "data-values/geo": "~4.0|~3.0",
         "data-values/number": "~0.10.0",
         "data-values/time": "~1.0",
 ```
