@@ -11,25 +11,11 @@
 entities in a Wikibase Repository JSON dump. You can find more information on the format on the
 [Wikidata dump download page](https://www.wikidata.org/wiki/Wikidata:Database_download).
 
-## Installation
-
-To use the JsonDumpReader library in your project, simply add a dependency on `jeroen/json-dump-reader`
-to your project's `composer.json` file. Here is a minimal example of a `composer.json`
-file that just defines a dependency on JsonDumpReader 2.x:
-
-```json
-{
-    "require": {
-        "jeroen/json-dump-reader": "~2.0"
-    }
-}
-```
-
-Supported PHP versions:
-
-* Version 2.x: 7.1 - 7.3+
-* Version 1.4: 5.6 - 7.2
-* Version 1.3: 5.5 - 7.2
+- [Usage](#usage)
+- [Installation](#installation)
+- [Development](#development)
+- [Release notes](#release-notes)
+- [See also](#see-also)
 
 ## Usage
 
@@ -117,6 +103,43 @@ provided by PHP, such as `LimitIterator` and `CallbackFilterIterator`.
 To get documentation that is never out of date and always fully correct for your version of the library,
 have a look at the public methods in `src/JsonDumpFactory.php`. Every public method has at least one
 test, so you can find good examples in the tests directory.
+
+## Installation
+
+To use the JsonDumpReader library in your project, simply add a dependency on `jeroen/json-dump-reader`
+to your project's `composer.json` file. Here is a minimal example of a `composer.json`
+file that just defines a dependency on JsonDumpReader 2.x:
+
+```json
+{
+    "require": {
+        "jeroen/json-dump-reader": "~2.0"
+    }
+}
+```
+
+Supported PHP versions:
+
+* Version 2.x: 7.1 - 7.3+
+* Version 1.4: 5.6 - 7.2
+* Version 1.3: 5.5 - 7.2
+
+If you want to use the EntityDocument Iterator, you will also need to install the DataValue libraries
+used by the Wikibase that created the dump. For Wikidata and typical Wikibase installations these are:
+
+* [DataValues Geo](https://github.com/DataValues/Geo/)](https://github.com/DataValues/Geo/)
+* [DataValues Number](https://github.com/DataValues/Geo/)](https://github.com/DataValues/Number/)
+* [DataValues Time](https://github.com/DataValues/Time/)
+
+These can be added to the `require` section in your `composer.json` as follows. Note that the used versions
+are current as of August 2018. You can use the latest versions that work for you as no restrictions on these
+libraries are placed by JsonDumpReader.
+
+```json
+        "data-values/geo": "~3.0|~2.0",
+        "data-values/number": "~0.10.0",
+        "data-values/time": "~1.0",
+```
 
 ## Development
 
