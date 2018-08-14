@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Tests\Wikibase\JsonDumpReader\Reader;
+namespace Wikibase\JsonDumpReader\Tests\Unit\Reader;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\Reader\Bz2DumpReader;

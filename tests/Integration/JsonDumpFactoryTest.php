@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Tests\Wikibase\JsonDumpReader;
+namespace Wikibase\JsonDumpReader\Tests\Integration;
 
 use JsonDumpData;
 use PHPUnit\Framework\TestCase;

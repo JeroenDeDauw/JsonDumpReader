@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Tests\Wikibase\JsonDumpReader\Iterator;
+namespace Wikibase\JsonDumpReader\Tests\Unit\Iterator;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\JsonDumpReader\JsonDumpFactory;

@@ -46,6 +46,11 @@
 			"Wikibase\\JsonDumpReader\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Wikibase\\JsonDumpReader\\Tests\\": "tests/"
+		}
+	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.0.x-dev"

@@ -2,26 +2,14 @@
 
 declare( strict_types = 1 );
 
-namespace Tests\Wikibase\JsonDumpReader;
+namespace Wikibase\JsonDumpReader\Tests\Integration;
 
-use DataValues\BooleanValue;
-use DataValues\Deserializers\DataValueDeserializer;
-use DataValues\Geo\Values\GlobeCoordinateValue;
-use DataValues\MonolingualTextValue;
-use DataValues\MultilingualTextValue;
-use DataValues\NumberValue;
-use DataValues\QuantityValue;
-use DataValues\StringValue;
-use DataValues\TimeValue;
-use DataValues\UnknownValue;
 use Iterator;
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\DeserializerFactory;
-use Wikibase\DataModel\Entity\BasicEntityIdParser;
-use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\JsonDumpReader\Iterator\EntityDumpIterator;
 use Wikibase\JsonDumpReader\JsonDumpFactory;
 use Wikibase\JsonDumpReader\Reader\ExtractedDumpReader;
+use Wikibase\JsonDumpReader\Tests\TestFactory;
 
 /**
  * @covers \Wikibase\JsonDumpReader\Iterator\EntityDumpIterator
@@ -35,35 +23,9 @@ class EntityDumpIteratorTest extends TestCase {
 	private function newIteratorForFile( $filePath, callable $onError = null ) {
 		return ( new JsonDumpFactory() )->newEntityDumpIterator(
 			new ExtractedDumpReader( $filePath ),
-			$this->newCurrentEntityDeserializer(),
+			TestFactory::newInstance()->newEntityDeserializer(),
 			$onError
 		);
-	}
-
-	private function newCurrentEntityDeserializer() {
-		$factory = new DeserializerFactory(
-			$this->newDataValueDeserializer(),
-			new BasicEntityIdParser()
-		);
-
-		return $factory->newEntityDeserializer();
-	}
-
-	private function newDataValueDeserializer() {
-		$dataValueClasses = [
-			'boolean' => BooleanValue::class,
-			'number' => NumberValue::class,
-			'string' => StringValue::class,
-			'unknown' => UnknownValue::class,
-			'globecoordinate' => GlobeCoordinateValue::class,
-			'monolingualtext' => MonolingualTextValue::class,
-			'multilingualtext' => MultilingualTextValue::class,
-			'quantity' => QuantityValue::class,
-			'time' => TimeValue::class,
-			'wikibase-entityid' => EntityIdValue::class,
-		];
-
-		return new DataValueDeserializer( $dataValueClasses );
 	}
 
 	private function assertFindsEntities( array $expectedIds, Iterator $dumpIterator, $message = '' ) {
@@ -116,7 +78,7 @@ class EntityDumpIteratorTest extends TestCase {
 
 		$iterator = new EntityDumpIterator(
 			( new JsonDumpFactory() )->newObjectDumpIterator( $reader ),
-			$this->newCurrentEntityDeserializer()
+			TestFactory::newInstance()->newEntityDeserializer()
 		);
 
 		$iterator->rewind();
@@ -132,7 +94,7 @@ class EntityDumpIteratorTest extends TestCase {
 
 		$newIterator = new EntityDumpIterator(
 			( new JsonDumpFactory() )->newObjectDumpIterator( $newReader ),
-			$this->newCurrentEntityDeserializer()
+			TestFactory::newInstance()->newEntityDeserializer()
 		);
 
 		$this->assertFindsEntities( [ 'P16', 'P19', 'P22' ], $newIterator );
