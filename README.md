@@ -15,12 +15,12 @@ entities in a Wikibase Repository JSON dump. You can find more information on th
 
 To use the JsonDumpReader library in your project, simply add a dependency on `jeroen/json-dump-reader`
 to your project's `composer.json` file. Here is a minimal example of a `composer.json`
-file that just defines a dependency on JsonDumpReader 1.x:
+file that just defines a dependency on JsonDumpReader 2.x:
 
 ```json
 {
     "require": {
-        "jeroen/json-dump-reader": "~1.0"
+        "jeroen/json-dump-reader": "~2.0"
     }
 }
 ```
