@@ -123,11 +123,13 @@ Supported PHP versions:
 * Version 1.4: 5.6 - 7.2
 * Version 1.3: 5.5 - 7.2
 
+### Installation when using EntityDocument 
+
 If you want to use the EntityDocument Iterator, you will also need to install the DataValue libraries
 used by the Wikibase that created the dump. For Wikidata and typical Wikibase installations these are:
 
-* [DataValues Geo](https://github.com/DataValues/Geo/)](https://github.com/DataValues/Geo/)
-* [DataValues Number](https://github.com/DataValues/Geo/)](https://github.com/DataValues/Number/)
+* [DataValues Geo](https://github.com/DataValues/Geo/)
+* [DataValues Number](https://github.com/DataValues/Number/)
 * [DataValues Time](https://github.com/DataValues/Time/)
 
 These can be added to the `require` section in your `composer.json` as follows. Note that the used versions
