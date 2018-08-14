@@ -6,8 +6,9 @@
 [![Download count](https://poser.pugx.org/jeroen/json-dump-reader/d/total.png)](https://packagist.org/packages/jeroen/json-dump-reader)
 [![Latest Stable Version](https://poser.pugx.org/jeroen/json-dump-reader/version.png)](https://packagist.org/packages/jeroen/json-dump-reader)
 
-**JsonDumpReader** provides ways to read from and iterate through the [Wikibase](http://wikiba.se/)
-entities in a Wikibase Repository JSON dump. You can find more information on the format on the
+**JsonDumpReader** is a PHP library that provides ways to read from and iterate through
+the [Wikibase](http://wikiba.se/) entities in a Wikibase Repository JSON dump such as
+the Wikidata JSON dumps. You can find more information about the format on the
 [Wikidata dump download page](https://www.wikidata.org/wiki/Wikidata:Database_download).
 
 - [Usage](#usage)
