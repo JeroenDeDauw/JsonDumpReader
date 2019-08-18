@@ -17,6 +17,10 @@ the Wikidata JSON dumps. You can find more information about the format on the
 - [Release notes](#release-notes)
 - [See also](#see-also)
 
+You can hire [the authors](https://www.entropywins.wtf/wikidata)
+company [Professional Wiki](https://professional.wiki/) for custom development
+or for [Wikibase hosting](https://professional.wiki/en/hosting#wikibase).
+
 ## Usage
 
 All services are constructed via the `JsonDumpFactory` class:
