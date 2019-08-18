@@ -12,6 +12,11 @@ DEFAULT_GOAL := ci
 
 ci: test cs
 
+travis: covers travis-unit cs
+
+travis-unit:
+	docker-compose run --rm app ./vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
+
 test: covers phpunit
 
 cs: phpcs
