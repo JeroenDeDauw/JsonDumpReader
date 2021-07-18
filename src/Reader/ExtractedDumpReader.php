@@ -82,7 +82,7 @@ class ExtractedDumpReader implements SeekableDumpReader {
 				return null;
 			}
 
-			if ( $line{0} === '{' ) {
+			if ( $line[0] === '{' ) {
 				return rtrim( $line, ",\n\r" );
 			}
 		}
