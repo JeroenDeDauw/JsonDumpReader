@@ -75,7 +75,7 @@ class Bz2DumpReader implements DumpReader {
 				return null;
 			}
 		}
-		while ( $line === '' || $line{0} !== '{' );
+		while ( $line === '' || $line[0] !== '{' );
 
 		return rtrim( $line, ",\n\r" );
 	}
