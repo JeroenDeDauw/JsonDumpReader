@@ -1,5 +1,10 @@
 # JsonDumpReader
 
+**I am not actively developing this library, which might no longer work! You can commission
+myself and other leading Wikibase experts for 
+[Wikibase Software Development](https://professional.wiki/en/wikibase-software-development)
+or other [Wikibase services](https://www.wikibase.consulting/wikibase-services/).**
+
 [![Build Status](https://travis-ci.org/JeroenDeDauw/JsonDumpReader.svg?branch=master)](https://travis-ci.org/JeroenDeDauw/JsonDumpReader)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/JeroenDeDauw/JsonDumpReader/?branch=master)
