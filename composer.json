@@ -29,7 +29,7 @@
 		"phpmd/phpmd": "~2.6",
 
 		"data-values/iri": "~0.1.0",
-		"data-values/number": "~0.10.0",
+		"data-values/number": "~0.12.3",
 		"data-values/geo": "~4.0|~3.0",
 		"data-values/time": "~1.0",
 
